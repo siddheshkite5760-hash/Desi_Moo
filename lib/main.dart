@@ -1,8 +1,11 @@
 import 'dart:io';
+import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:image_cropper/image_cropper.dart';
+import 'package:tflite_flutter/tflite_flutter.dart' as tflite;
+import 'package:image/image.dart' as img;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -32,8 +35,6 @@ class DesiMooApp extends StatelessWidget {
 
 // --- GLOBAL STATE MANAGERS ---
 ValueNotifier<String> appLanguage = ValueNotifier<String>('en');
-
-// This stores our cropped images for the session
 ValueNotifier<List<String>> savedCattles = ValueNotifier<List<String>>([]);
 
 String translate(String key) {
@@ -450,61 +451,255 @@ class ForgotPasswordScreen extends StatelessWidget {
   }
 }
 
-// --- 7. DASHBOARD SCREEN ---
-class DashboardScreen extends StatelessWidget {
+// --- 7. DASHBOARD SCREEN (Now Stateful for Model Support) ---
+class DashboardScreen extends StatefulWidget {
   final bool isAdmin;
   const DashboardScreen({super.key, required this.isAdmin});
 
-  // Camera & Crop Logic Function
-  Future<void> _scanCattle(BuildContext context) async {
+  @override
+  State<DashboardScreen> createState() => _DashboardScreenState();
+}
+
+class _DashboardScreenState extends State<DashboardScreen> {
+  tflite.Interpreter? _interpreter;
+  List<String>? _labels;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadModel();
+  }
+
+  // Helper to load detection model
+  Future<void> _loadModel() async {
+    try {
+      _interpreter = await tflite.Interpreter.fromAsset('assets/model/best_float16.tflite');
+      final labelData = await DefaultAssetBundle.of(context).loadString('assets/model/labels.txt');
+      _labels = labelData.split('\n').where((s) => s.isNotEmpty).toList();
+    } catch (e) {
+      debugPrint("Error loading model: $e");
+    }
+  }
+
+  // Database of breed-specific information
+  Map<String, String> getBreedInfo(String breedName) {
+    Map<String, Map<String, String>> breedData = {
+      'Gir': {
+        'type': 'Cow',
+        'origin': 'Gujarat (Saurashtra)',
+        'lifespan': '12-15 years',
+        'milk': '12-20 Liters/day',
+        'weight': '385kg - 545kg',
+        'height': '130 - 140 cm',
+        'appearance': 'Convex forehead, long pendulous ears.'
+      },
+      'Sahiwal': {
+        'type': 'Cow',
+        'origin': 'Punjab/Haryana',
+        'lifespan': '14-16 years',
+        'milk': '10-15 Liters/day',
+        'weight': '400kg - 500kg',
+        'height': '120 - 130 cm',
+        'appearance': 'Reddish brown color, heavy skin folds.'
+      },
+      'Murrah': {
+        'type': 'Buffalo',
+        'origin': 'Haryana (Rohtak, Hisar)',
+        'lifespan': '18-20 years',
+        'milk': '15-25 Liters/day',
+        'weight': '450kg - 800kg',
+        'height': '135 - 145 cm',
+        'appearance': 'Jet black body, tightly curved horns.'
+      },
+    };
+    return breedData[breedName] ?? {
+      'type': 'Cow or Buffalo',
+      'origin': 'Indigenous to India',
+      'lifespan': '15-20 years',
+      'milk': '10-25 Liters/day',
+      'weight': '400-700kg',
+      'height': '120-150cm',
+      'appearance': 'Native Indian breed traits.'
+    };
+  }
+
+  void _showImageSourceDialog(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      builder: (context) => SafeArea(
+        child: Wrap(
+          children: [
+            ListTile(
+              leading: const Icon(Icons.photo_library),
+              title: const Text('Upload from Gallery'),
+              onTap: () {
+                Navigator.pop(context);
+                _scanCattle(context, ImageSource.gallery);
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.camera_alt),
+              title: const Text('Capture with Camera'),
+              onTap: () {
+                Navigator.pop(context);
+                _scanCattle(context, ImageSource.camera);
+              },
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Future<void> _scanCattle(BuildContext context, ImageSource source) async {
     try {
       final ImagePicker picker = ImagePicker();
-      final XFile? image = await picker.pickImage(source: ImageSource.camera);
+      final XFile? image = await picker.pickImage(source: source);
 
       if (image != null) {
         CroppedFile? croppedFile = await ImageCropper().cropImage(
           sourcePath: image.path,
           uiSettings: [
             AndroidUiSettings(
-              toolbarTitle: 'Crop Cattle Image',
+              toolbarTitle: 'Focus on Cattle',
               toolbarColor: const Color(0xFF64DD17),
               toolbarWidgetColor: Colors.white,
               initAspectRatio: CropAspectRatioPreset.original,
               lockAspectRatio: false,
-              aspectRatioPresets: [
-                CropAspectRatioPreset.square,
-                CropAspectRatioPreset.ratio3x2,
-                CropAspectRatioPreset.original,
-                CropAspectRatioPreset.ratio4x3,
-                CropAspectRatioPreset.ratio16x9
-              ],
             ),
-            IOSUiSettings(
-              title: 'Crop Cattle Image',
-              aspectRatioPresets: [
-                CropAspectRatioPreset.square,
-                CropAspectRatioPreset.ratio3x2,
-                CropAspectRatioPreset.original,
-                CropAspectRatioPreset.ratio4x3,
-                CropAspectRatioPreset.ratio16x9
-              ],
-            ),
+            IOSUiSettings(title: 'Focus on Cattle'),
           ],
         );
 
         if (croppedFile != null) {
-          // Saving image to our global library list
+          String breed = await _performAIClassification(croppedFile.path);
           savedCattles.value = List.from(savedCattles.value)..add(croppedFile.path);
-          if (context.mounted) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text("Cattle Saved Successfully!")),
-            );
+          if (mounted) {
+            _showResultDialog(context, breed, croppedFile.path);
           }
         }
       }
     } catch (e) {
       print("Error during scan/crop: $e");
     }
+  }
+
+  // Real AI Inference Logic
+  Future<String> _performAIClassification(String imagePath) async {
+    if (_interpreter == null || _labels == null) return "Model Not Loaded";
+    try {
+      var imageBytes = File(imagePath).readAsBytesSync();
+      img.Image? oriImage = img.decodeImage(imageBytes);
+      if (oriImage == null) return "Error Decoding Image";
+      img.Image resizedImage = img.copyResize(oriImage, width: 224, height: 224);
+      var input = Float32List(1 * 224 * 224 * 3);
+      var bufferIndex = 0;
+      for (var y = 0; y < 224; y++) {
+        for (var x = 0; x < 224; x++) {
+          var pixel = resizedImage.getPixel(x, y);
+          input[bufferIndex++] = pixel.r / 255.0;
+          input[bufferIndex++] = pixel.g / 255.0;
+          input[bufferIndex++] = pixel.b / 255.0;
+        }
+      }
+      var output = List.filled(1 * _labels!.length, 0.0).reshape([1, _labels!.length]);
+      _interpreter!.run(input, output);
+      double maxProb = -1;
+      int maxIdx = 0;
+      for (int i = 0; i < _labels!.length; i++) {
+        if (output[0][i] > maxProb) {
+          maxProb = output[0][i];
+          maxIdx = i;
+        }
+      }
+      return _labels![maxIdx];
+    } catch (e) {
+      debugPrint("Inference Error: $e");
+      return "Inference Error";
+    }
+  }
+
+  // INTERFACE LOADED AFTER AI DETECTION
+  void _showResultDialog(BuildContext context, String breed, String imagePath) {
+    final details = getBreedInfo(breed);
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) {
+        return Dialog(
+          insetPadding: const EdgeInsets.all(12),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+          child: Container(
+            color: Colors.white,
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.symmetric(vertical: 14),
+                    color: const Color(0xFF64DD17),
+                    child: const Center(
+                      child: Text("Breed Information",
+                          style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold)),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(8),
+                      child: Image.file(File(imagePath), height: 200, width: double.infinity, fit: BoxFit.cover),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        _infoText("Breed :- $breed"),
+                        _infoText("Type: ${details['type']}"),
+                        _infoText("Origin/Native Region: ${details['origin']}"),
+                        _infoText("Lifespan: ${details['lifespan']}"),
+                        _infoText("Milk Production: ${details['milk']}"),
+                        _infoText("Average Weight :- ${details['weight']}"),
+                        _infoText("Height :- ${details['height']}"),
+                        _infoText("Appearance: ${details['appearance']}"),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 40),
+                    child: SizedBox(
+                      width: double.infinity,
+                      height: 50,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xFF64DD17),
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                        ),
+                        onPressed: () => Navigator.pop(context),
+                        child: const Text("Go back",
+                            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white)),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  Container(height: 35, width: double.infinity, color: const Color(0xFF64DD17)),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _infoText(String text) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8),
+      child: Text(text, style: const TextStyle(fontSize: 16, color: Colors.black87)),
+    );
   }
 
   @override
@@ -514,7 +709,7 @@ class DashboardScreen extends StatelessWidget {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         backgroundColor: const Color(0xFF64DD17),
-        title: Text(isAdmin ? translate('welcome_admin') : translate('welcome_user'),
+        title: Text(widget.isAdmin ? translate('welcome_admin') : translate('welcome_user'),
             style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
         actions: [
           IconButton(
@@ -529,7 +724,6 @@ class DashboardScreen extends StatelessWidget {
             padding: const EdgeInsets.all(16),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10),
-              // --- FULLY UPDATED .png PATH HERE ---
               child: Image.asset(
                 'assets/farmer_cattles.png',
                 width: double.infinity,
@@ -546,14 +740,12 @@ class DashboardScreen extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: ListView(
                 children: [
-                  _dashButton(Icons.camera_alt_outlined, translate('dash_scan'), () => _scanCattle(context)),
+                  _dashButton(Icons.camera_alt_outlined, translate('dash_scan'), () => _showImageSourceDialog(context)),
                   const SizedBox(height: 20),
                   _dashButton(Icons.bookmark_outline, translate('dash_saved'), () => Navigator.push(context, MaterialPageRoute(builder: (context) => const SavedCattlesScreen()))),
                   const SizedBox(height: 20),
-                  _dashButton(Icons.book_outlined, translate('dash_library'), () {}),
-
-                  // Completely removed for users - no light shadow left
-                  if (isAdmin) ...[
+                  _dashButton(Icons.book_outlined, translate('dash_library'), () => Navigator.push(context, MaterialPageRoute(builder: (context) => const BreedLibraryScreen()))),
+                  if (widget.isAdmin) ...[
                     const SizedBox(height: 20),
                     _dashButton(Icons.badge_outlined, translate('dash_aadhar'), () {}),
                   ],
@@ -584,6 +776,12 @@ class DashboardScreen extends StatelessWidget {
       ),
     );
   }
+
+  @override
+  void dispose() {
+    _interpreter?.close();
+    super.dispose();
+  }
 }
 
 // --- 8. SAVED CATTLES SCREEN ---
@@ -603,9 +801,7 @@ class SavedCattlesScreen extends StatelessWidget {
         valueListenable: savedCattles,
         builder: (context, cattles, child) {
           if (cattles.isEmpty) {
-            return Center(
-              child: Text(translate('no_cattles'), style: const TextStyle(fontSize: 18, color: Colors.grey)),
-            );
+            return Center(child: Text(translate('no_cattles'), style: const TextStyle(fontSize: 18, color: Colors.grey)));
           }
           return ListView.builder(
             itemCount: cattles.length,
@@ -618,10 +814,7 @@ class SavedCattlesScreen extends StatelessWidget {
                   contentPadding: const EdgeInsets.all(10),
                   leading: GestureDetector(
                     onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => FullScreenImage(imagePath: imagePath))),
-                    child: CircleAvatar(
-                      radius: 35,
-                      backgroundImage: FileImage(File(imagePath)),
-                    ),
+                    child: CircleAvatar(radius: 35, backgroundImage: FileImage(File(imagePath))),
                   ),
                   title: Text("${translate('cattle_record')}${index + 1}", style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
                   trailing: IconButton(
@@ -640,24 +833,105 @@ class SavedCattlesScreen extends StatelessWidget {
   }
 }
 
-// --- 9. FULL SCREEN IMAGE VIEWER ---
-class FullScreenImage extends StatelessWidget {
-  final String imagePath;
-  const FullScreenImage({super.key, required this.imagePath});
+// --- 9. BREED LIBRARY SCREEN ---
+class BreedLibraryScreen extends StatelessWidget {
+  const BreedLibraryScreen({super.key});
+
+  // Expanded breed library data to restore code length and detail
+  final List<Map<String, String>> breeds = const [
+    {
+      'name': 'Gir',
+      'origin': 'Gujarat',
+      'desc': 'The Gir is one of the principal Zebu breeds originating in India. It has been used locally in the improvement of other breeds and is famous for its tolerance to tropical diseases.'
+    },
+    {
+      'name': 'Sahiwal',
+      'origin': 'Punjab/Haryana',
+      'desc': 'Sahiwal is a breed of Zebu cattle, primarily used in dairy production. It originated from the Sahiwal district of Punjab. They are heavily built and known for high milk fat content.'
+    },
+    {
+      'name': 'Red Sindhi',
+      'origin': 'Sindh region',
+      'desc': 'Red Sindhi cattle are the most popular of all Zebu dairy breeds. The breed originated in the Sindh province of Pakistan but is widely kept for milk production across India.'
+    },
+    {
+      'name': 'Murrah (Buffalo)',
+      'origin': 'Haryana',
+      'desc': 'The Murrah buffalo is a breed of domestic buffalo kept for dairy production. It is originally from Haryana but is used to improve the milk yield of dairy buffalo in other regions.'
+    },
+    {
+      'name': 'Tharparkar',
+      'origin': 'Rajasthan',
+      'desc': 'Tharparkar is a dual-purpose breed of cattle known for its milk-producing capacity and its ability to work as a draft animal. It is extremely hardy and heat-tolerant.'
+    },
+    {
+      'name': 'Ongole',
+      'origin': 'Andhra Pradesh',
+      'desc': 'The Ongole breed of cattle is world-famous. They are known for their toughness, high milk yield, rapid growth rate, and natural resistance to several tropical diseases.'
+    },
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.black,
+        backgroundColor: const Color(0xFF64DD17),
         iconTheme: const IconThemeData(color: Colors.white),
+        title: const Text("Indigenous Breed Library", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
       ),
-      body: Center(
-        child: InteractiveViewer(
-          child: Image.file(File(imagePath)),
-        ),
+      body: ListView.builder(
+        padding: const EdgeInsets.all(16),
+        itemCount: breeds.length,
+        itemBuilder: (context, index) {
+          return Card(
+            elevation: 4,
+            margin: const EdgeInsets.only(bottom: 16),
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                    height: 180,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                        color: Colors.grey[300],
+                        borderRadius: const BorderRadius.vertical(top: Radius.circular(15))
+                    ),
+                    child: const Icon(Icons.pets, size: 60, color: Colors.grey)
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(breeds[index]['name']!, style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Color(0xFF64DD17))),
+                      const SizedBox(height: 5),
+                      Text("Origin: ${breeds[index]['origin']}", style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: Colors.grey)),
+                      const SizedBox(height: 12),
+                      Text(breeds[index]['desc']!, style: const TextStyle(fontSize: 15, height: 1.4)),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          );
+        },
       ),
+    );
+  }
+}
+
+// --- 10. FULL SCREEN IMAGE VIEWER ---
+class FullScreenImage extends StatelessWidget {
+  final String imagePath;
+  const FullScreenImage({super.key, required this.imagePath});
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        backgroundColor: Colors.black,
+        appBar: AppBar(backgroundColor: Colors.black, iconTheme: const IconThemeData(color: Colors.white)),
+        body: Center(child: InteractiveViewer(child: Image.file(File(imagePath))))
     );
   }
 }
@@ -666,6 +940,7 @@ class FullScreenImage extends StatelessWidget {
 InputDecoration _inputDecoration(String hint) {
   return InputDecoration(
     hintText: hint,
+    contentPadding: const EdgeInsets.symmetric(vertical: 18, horizontal: 20),
     enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(15), borderSide: const BorderSide(color: Color(0xFF64DD17), width: 2.5)),
     focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(15), borderSide: const BorderSide(color: Color(0xFF64DD17), width: 2.5)),
     errorBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(15), borderSide: const BorderSide(color: Colors.red, width: 2)),
@@ -677,9 +952,16 @@ Widget _actionButton(String label, VoidCallback onTap) {
   return GestureDetector(
     onTap: onTap,
     child: Container(
-      width: double.infinity, height: 55,
-      decoration: BoxDecoration(borderRadius: BorderRadius.circular(15), border: Border.all(color: const Color(0xFF64DD17), width: 2.5)),
-      child: Center(child: Text(label, style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Color(0xFF64DD17)))),
+      width: double.infinity,
+      height: 60,
+      decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(15),
+          border: Border.all(color: const Color(0xFF64DD17), width: 2.5)
+      ),
+      child: Center(
+          child: Text(label, style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Color(0xFF64DD17)))
+      ),
     ),
   );
 }
