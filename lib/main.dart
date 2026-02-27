@@ -576,28 +576,32 @@ class _DashboardScreenState extends State<DashboardScreen> {
     }
   }
 
-  // Database of breed-specific information
+  // --- UPDATED: Robust Breed Database & Matcher ---
   Map<String, String> getBreedInfo(String breedName) {
+    // 1. Clean the incoming string from the AI (make lowercase, remove extra spaces)
+    String searchKey = breedName.toLowerCase().trim();
+
+    // 2. Expanded database of Indian Cattle Breeds
     Map<String, Map<String, String>> breedData = {
-      'Gir': {
+      'gir': {
         'type': 'Cow',
         'origin': 'Gujarat (Saurashtra)',
         'lifespan': '12-15 years',
         'milk': '12-20 Liters/day',
         'weight': '385kg - 545kg',
         'height': '130 - 140 cm',
-        'appearance': 'Convex forehead, long pendulous ears.'
+        'appearance': 'Convex forehead, long pendulous ears, red/spotted.'
       },
-      'Sahiwal': {
+      'sahiwal': {
         'type': 'Cow',
         'origin': 'Punjab/Haryana',
         'lifespan': '14-16 years',
         'milk': '10-15 Liters/day',
         'weight': '400kg - 500kg',
         'height': '120 - 130 cm',
-        'appearance': 'Reddish brown color, heavy skin folds.'
+        'appearance': 'Reddish brown color, heavy skin folds, prominent dewlap.'
       },
-      'Murrah': {
+      'murrah': {
         'type': 'Buffalo',
         'origin': 'Haryana (Rohtak, Hisar)',
         'lifespan': '18-20 years',
@@ -606,15 +610,88 @@ class _DashboardScreenState extends State<DashboardScreen> {
         'height': '135 - 145 cm',
         'appearance': 'Jet black body, tightly curved horns.'
       },
+      'red sindhi': {
+        'type': 'Cow',
+        'origin': 'Sindh/Rajasthan',
+        'lifespan': '12-15 years',
+        'milk': '12-18 Liters/day',
+        'weight': '300kg - 450kg',
+        'height': '115 - 130 cm',
+        'appearance': 'Deep red color, compact frame, thick horns.'
+      },
+      'tharparkar': {
+        'type': 'Cow',
+        'origin': 'Rajasthan',
+        'lifespan': '14-18 years',
+        'milk': '10-14 Liters/day',
+        'weight': '400kg - 500kg',
+        'height': '120 - 140 cm',
+        'appearance': 'White/light grey color, lyre-shaped horns.'
+      },
+      'ongole': {
+        'type': 'Cow',
+        'origin': 'Andhra Pradesh',
+        'lifespan': '15-20 years',
+        'milk': '5-8 Liters/day',
+        'weight': '430kg - 500kg',
+        'height': '135 - 150 cm',
+        'appearance': 'Glossy white, huge hump, short horns, muscular build.'
+      },
+      'kankrej': {
+        'type': 'Cow',
+        'origin': 'Gujarat/Rajasthan',
+        'lifespan': '12-16 years',
+        'milk': '8-10 Liters/day',
+        'weight': '420kg - 590kg',
+        'height': '130 - 140 cm',
+        'appearance': 'Silver-grey to iron-grey, large strong crescent horns.'
+      },
+      'hariana': {
+        'type': 'Cow',
+        'origin': 'Haryana',
+        'lifespan': '14-18 years',
+        'milk': '8-12 Liters/day',
+        'weight': '350kg - 500kg',
+        'height': '130 - 140 cm',
+        'appearance': 'White or light grey, long narrow face, small horns.'
+      },
+      'deoni': {
+        'type': 'Cow',
+        'origin': 'Maharashtra/Karnataka',
+        'lifespan': '12-15 years',
+        'milk': '6-10 Liters/day',
+        'weight': '400kg - 500kg',
+        'height': '120 - 135 cm',
+        'appearance': 'Black and white patches, prominent forehead, drooping ears.'
+      },
+      'khillari': {
+        'type': 'Cow (Draught)',
+        'origin': 'Maharashtra',
+        'lifespan': '10-14 years',
+        'milk': '2-4 Liters/day',
+        'weight': '350kg - 450kg',
+        'height': '120 - 135 cm',
+        'appearance': 'Greyish-white, long sweeping horns, quick and spirited.'
+      }
     };
-    return breedData[breedName] ?? {
-      'type': 'Cow or Buffalo',
-      'origin': 'Indigenous to India',
-      'lifespan': '15-20 years',
-      'milk': '10-25 Liters/day',
-      'weight': '400-700kg',
-      'height': '120-150cm',
-      'appearance': 'Native Indian breed traits.'
+
+    // 3. Smart Matching: Check if the AI's label contains the key
+    // This handles strings like "01_Gir_Cow" or "sahiwal" dynamically
+    for (String key in breedData.keys) {
+      if (searchKey.contains(key)) {
+        return breedData[key]!;
+      }
+    }
+
+    // 4. Default Fallback (Only shows if the model returns something completely unknown)
+    return {
+      'type': 'Cattle',
+      'origin': 'Unknown/Mixed',
+      'lifespan': '10-20 years',
+      'milk': 'Data unavailable',
+      'weight': 'Data unavailable',
+      'height': 'Data unavailable',
+      'appearance': 'Could not accurately pull specific breed traits.'
     };
   }
 
