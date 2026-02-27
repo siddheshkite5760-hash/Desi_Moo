@@ -7,7 +7,9 @@ plugins {
 android {
     namespace = "com.example.desimoo_app" // Ensure this matches your package name
     compileSdk = flutter.compileSdkVersion
-
+    androidResources {
+        noCompress("tflite", "lite")
+    }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17

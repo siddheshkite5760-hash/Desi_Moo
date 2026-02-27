@@ -1,0 +1,7 @@
+gir
+murrah
+sahiwal
+red_sindhi
+tharparkar
+jaffarabadi
+mehsana

@@ -451,7 +451,7 @@ class ForgotPasswordScreen extends StatelessWidget {
   }
 }
 
-// --- 7. DASHBOARD SCREEN (Now Stateful for Model Support) ---
+// --- 7. DASHBOARD SCREEN ---
 class DashboardScreen extends StatefulWidget {
   final bool isAdmin;
   const DashboardScreen({super.key, required this.isAdmin});
@@ -470,12 +470,22 @@ class _DashboardScreenState extends State<DashboardScreen> {
     _loadModel();
   }
 
-  // Helper to load detection model
+  // Unified, conflict-free Model Loader
   Future<void> _loadModel() async {
     try {
-      _interpreter = await tflite.Interpreter.fromAsset('assets/model/best_float16.tflite');
+      final options = tflite.InterpreterOptions();
+      if (Platform.isAndroid) {
+        options.useNnApiForAndroid = true;
+      }
+
+      _interpreter = await tflite.Interpreter.fromAsset(
+        'assets/model/best_float16.tflite',
+        options: options,
+      );
+
       final labelData = await DefaultAssetBundle.of(context).loadString('assets/model/labels.txt');
       _labels = labelData.split('\n').where((s) => s.isNotEmpty).toList();
+      debugPrint("Model Loaded Successfully");
     } catch (e) {
       debugPrint("Error loading model: $e");
     }
@@ -523,26 +533,27 @@ class _DashboardScreenState extends State<DashboardScreen> {
     };
   }
 
+  // UPDATED: Use bottomSheetContext to avoid conflict with main context
   void _showImageSourceDialog(BuildContext context) {
     showModalBottomSheet(
       context: context,
-      builder: (context) => SafeArea(
+      builder: (bottomSheetContext) => SafeArea(
         child: Wrap(
           children: [
             ListTile(
               leading: const Icon(Icons.photo_library),
               title: const Text('Upload from Gallery'),
               onTap: () {
-                Navigator.pop(context);
-                _scanCattle(context, ImageSource.gallery);
+                Navigator.pop(bottomSheetContext);
+                _scanCattle(ImageSource.gallery);
               },
             ),
             ListTile(
               leading: const Icon(Icons.camera_alt),
               title: const Text('Capture with Camera'),
               onTap: () {
-                Navigator.pop(context);
-                _scanCattle(context, ImageSource.camera);
+                Navigator.pop(bottomSheetContext);
+                _scanCattle(ImageSource.camera);
               },
             ),
           ],
@@ -551,7 +562,57 @@ class _DashboardScreenState extends State<DashboardScreen> {
     );
   }
 
-  Future<void> _scanCattle(BuildContext context, ImageSource source) async {
+  // Updated YOLOv8 Parser with Shape 36 Mismatch Fix
+  Future<String> _performAIClassification(String imagePath) async {
+    if (_interpreter == null || _labels == null) return "Model Not Loaded";
+    try {
+      var imageBytes = File(imagePath).readAsBytesSync();
+      img.Image? oriImage = img.decodeImage(imageBytes);
+      if (oriImage == null) return "Error Decoding Image";
+
+      img.Image resizedImage = img.copyResize(oriImage, width: 640, height: 640);
+
+      var input = Float32List(1 * 640 * 640 * 3);
+      var bufferIndex = 0;
+      for (var y = 0; y < 640; y++) {
+        for (var x = 0; x < 640; x++) {
+          var pixel = resizedImage.getPixel(x, y);
+          input[bufferIndex++] = pixel.r / 255.0;
+          input[bufferIndex++] = pixel.g / 255.0;
+          input[bufferIndex++] = pixel.b / 255.0;
+        }
+      }
+
+      // Applied Fix: Your model outputs 36 elements per box, not 11.
+      int outputElements = 36;
+      var output = List.filled(1 * outputElements * 8400, 0.0).reshape([1, outputElements, 8400]);
+
+      _interpreter!.run(input.reshape([1, 640, 640, 3]), output);
+
+      double maxScore = -1;
+      int bestIdx = -1;
+      int numClassesToLabels = _labels!.length;
+
+      for (int i = 0; i < 8400; i++) {
+        for (int c = 0; c < numClassesToLabels; c++) {
+          double score = output[0][4 + c][i];
+          if (score > maxScore) {
+            maxScore = score;
+            bestIdx = c;
+          }
+        }
+      }
+
+      // Lowered threshold to 0.30 to account for dropped frames/lag
+      return (maxScore > 0.30 && bestIdx != -1) ? _labels![bestIdx].trim() : "Unknown Breed";
+    } catch (e) {
+      debugPrint("Inference Error: $e");
+      return "Inference Error";
+    }
+  }
+
+  // UPDATED: Removed BuildContext argument to rely on the safe class-level context
+  Future<void> _scanCattle(ImageSource source) async {
     try {
       final ImagePicker picker = ImagePicker();
       final XFile? image = await picker.pickImage(source: source);
@@ -573,49 +634,16 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
         if (croppedFile != null) {
           String breed = await _performAIClassification(croppedFile.path);
-          savedCattles.value = List.from(savedCattles.value)..add(croppedFile.path);
-          if (mounted) {
-            _showResultDialog(context, breed, croppedFile.path);
-          }
-        }
-      }
-    } catch (e) {
-      print("Error during scan/crop: $e");
-    }
-  }
 
-  // Real AI Inference Logic
-  Future<String> _performAIClassification(String imagePath) async {
-    if (_interpreter == null || _labels == null) return "Model Not Loaded";
-    try {
-      var imageBytes = File(imagePath).readAsBytesSync();
-      img.Image? oriImage = img.decodeImage(imageBytes);
-      if (oriImage == null) return "Error Decoding Image";
-      img.Image resizedImage = img.copyResize(oriImage, width: 224, height: 224);
-      var input = Float32List(1 * 224 * 224 * 3);
-      var bufferIndex = 0;
-      for (var y = 0; y < 224; y++) {
-        for (var x = 0; x < 224; x++) {
-          var pixel = resizedImage.getPixel(x, y);
-          input[bufferIndex++] = pixel.r / 255.0;
-          input[bufferIndex++] = pixel.g / 255.0;
-          input[bufferIndex++] = pixel.b / 255.0;
+          // BuildContext Fix: Abort if the screen is closed before AI finishes
+          if (!mounted) return;
+
+          savedCattles.value = List.from(savedCattles.value)..add(croppedFile.path);
+          _showResultDialog(context, breed, croppedFile.path);
         }
       }
-      var output = List.filled(1 * _labels!.length, 0.0).reshape([1, _labels!.length]);
-      _interpreter!.run(input, output);
-      double maxProb = -1;
-      int maxIdx = 0;
-      for (int i = 0; i < _labels!.length; i++) {
-        if (output[0][i] > maxProb) {
-          maxProb = output[0][i];
-          maxIdx = i;
-        }
-      }
-      return _labels![maxIdx];
     } catch (e) {
-      debugPrint("Inference Error: $e");
-      return "Inference Error";
+      debugPrint("Error during scan/crop: $e");
     }
   }
 
@@ -837,7 +865,6 @@ class SavedCattlesScreen extends StatelessWidget {
 class BreedLibraryScreen extends StatelessWidget {
   const BreedLibraryScreen({super.key});
 
-  // Expanded breed library data to restore code length and detail
   final List<Map<String, String>> breeds = const [
     {
       'name': 'Gir',

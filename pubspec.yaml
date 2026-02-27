@@ -9,6 +9,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  http: ^1.1.0
   shared_preferences: ^2.2.2
   mongo_dart: ^0.10.4
   image_picker: ^1.0.7
@@ -27,3 +28,5 @@ flutter:
   assets:
     - assets/logo.png
     - assets/farmer_cattles.png
+    - assets/model/best_float16.tflite
+    - assets/model/labels.txt
