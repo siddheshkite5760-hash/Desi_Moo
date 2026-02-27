@@ -7,8 +7,15 @@ import 'package:image_cropper/image_cropper.dart';
 import 'package:tflite_flutter/tflite_flutter.dart' as tflite;
 import 'package:image/image.dart' as img;
 
+// --- DATABASE IMPORT ---
+import 'mongo_database.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  // Initialize MongoDB Atlas connection before app starts
+  await MongoDatabase.connect();
+
   runApp(const DesiMooApp());
 }
 
@@ -380,9 +387,29 @@ class _LoginInputScreenState extends State<LoginInputScreen> {
                   child: Text(translate('forgot_pass'), style: const TextStyle(color: Color(0xFF64DD17), fontWeight: FontWeight.bold)),
                 ),
                 const SizedBox(height: 50),
-                _actionButton(translate('login_btn'), () {
+
+                // --- CONNECTED TO DATABASE: LOGIN LOGIC ---
+                _actionButton(translate('login_btn'), () async {
                   if (_formKey.currentState!.validate()) {
-                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => DashboardScreen(isAdmin: widget.isAdmin)));
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text("Verifying details..."), duration: Duration(seconds: 1)),
+                    );
+
+                    bool isValid = await MongoDatabase.loginUser(
+                        _idController.text.trim(),
+                        _passController.text.trim(),
+                        widget.isAdmin
+                    );
+
+                    if (!mounted) return;
+
+                    if (isValid) {
+                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => DashboardScreen(isAdmin: widget.isAdmin)));
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text("Invalid Credentials or User does not exist!"), backgroundColor: Colors.red)
+                      );
+                    }
                   }
                 }),
               ],
@@ -395,9 +422,48 @@ class _LoginInputScreenState extends State<LoginInputScreen> {
 }
 
 // --- 5. SIGN UP SCREEN ---
-class SignUpScreen extends StatelessWidget {
+class SignUpScreen extends StatefulWidget {
   final bool isAdmin;
   const SignUpScreen({super.key, required this.isAdmin});
+
+  @override
+  State<SignUpScreen> createState() => _SignUpScreenState();
+}
+
+class _SignUpScreenState extends State<SignUpScreen> {
+  final _nameController = TextEditingController();
+  final _idController = TextEditingController();
+  final _passController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
+  bool _isLoading = false;
+
+  // --- CONNECTED TO DATABASE: REGISTRATION LOGIC ---
+  Future<void> _handleSignUp() async {
+    if (_formKey.currentState!.validate()) {
+      setState(() => _isLoading = true);
+
+      String result = await MongoDatabase.registerUser(
+        _nameController.text.trim(),
+        _idController.text.trim(),
+        _passController.text.trim(),
+        widget.isAdmin,
+      );
+
+      if (!mounted) return;
+      setState(() => _isLoading = false);
+
+      if (result == "Success") {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text("Account Created Successfully!"), backgroundColor: Colors.green),
+        );
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => DashboardScreen(isAdmin: widget.isAdmin)));
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(result), backgroundColor: Colors.red),
+        );
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -407,17 +473,36 @@ class SignUpScreen extends StatelessWidget {
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(30.0),
-          child: Column(
-            children: [
-              const SizedBox(height: 20),
-              TextFormField(decoration: _inputDecoration(isAdmin ? translate('full_name_admin') : translate('full_name_farmer'))),
-              const SizedBox(height: 20),
-              TextFormField(decoration: _inputDecoration(isAdmin ? translate('enter_email') : translate('enter_mobile'))),
-              const SizedBox(height: 20),
-              TextFormField(obscureText: true, decoration: _inputDecoration(translate('create_password'))),
-              const SizedBox(height: 40),
-              _actionButton(translate('create_acc'), () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => DashboardScreen(isAdmin: isAdmin)))),
-            ],
+          child: Form(
+            key: _formKey,
+            child: Column(
+              children: [
+                const SizedBox(height: 20),
+                TextFormField(
+                  controller: _nameController,
+                  decoration: _inputDecoration(widget.isAdmin ? translate('full_name_admin') : translate('full_name_farmer')),
+                  validator: (v) => v == null || v.isEmpty ? translate('field_req') : null,
+                ),
+                const SizedBox(height: 20),
+                TextFormField(
+                  controller: _idController,
+                  keyboardType: widget.isAdmin ? TextInputType.emailAddress : TextInputType.phone,
+                  decoration: _inputDecoration(widget.isAdmin ? translate('enter_email') : translate('enter_mobile')),
+                  validator: (v) => v == null || v.isEmpty ? translate('field_req') : null,
+                ),
+                const SizedBox(height: 20),
+                TextFormField(
+                  controller: _passController,
+                  obscureText: true,
+                  decoration: _inputDecoration(translate('create_password')),
+                  validator: (v) => v == null || v.length < 8 ? translate('pass_rec') : null,
+                ),
+                const SizedBox(height: 40),
+                _isLoading
+                    ? const Center(child: CircularProgressIndicator(color: Color(0xFF64DD17)))
+                    : _actionButton(translate('create_acc'), _handleSignUp),
+              ],
+            ),
           ),
         ),
       ),
@@ -443,7 +528,7 @@ class ForgotPasswordScreen extends StatelessWidget {
             const SizedBox(height: 30),
             TextFormField(decoration: _inputDecoration(translate('id_hint'))),
             const SizedBox(height: 40),
-            _actionButton(translate('send_otp'), () => print("Sending recovery email/OTP...")),
+            _actionButton(translate('send_otp'), () => debugPrint("Sending recovery email/OTP...")),
           ],
         ),
       ),
@@ -533,7 +618,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
     };
   }
 
-  // UPDATED: Use bottomSheetContext to avoid conflict with main context
+  // Use bottomSheetContext to avoid conflict with main context
   void _showImageSourceDialog(BuildContext context) {
     showModalBottomSheet(
       context: context,
@@ -583,7 +668,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
         }
       }
 
-      // Applied Fix: Your model outputs 36 elements per box, not 11.
       int outputElements = 36;
       var output = List.filled(1 * outputElements * 8400, 0.0).reshape([1, outputElements, 8400]);
 
@@ -591,10 +675,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
       double maxScore = -1;
       int bestIdx = -1;
-      int numClassesToLabels = _labels!.length;
+
+      // Since outputElements is 36, and 4 are bounding box coords, the model has 32 classes
+      int totalModelClasses = 32;
 
       for (int i = 0; i < 8400; i++) {
-        for (int c = 0; c < numClassesToLabels; c++) {
+        for (int c = 0; c < totalModelClasses; c++) {
           double score = output[0][4 + c][i];
           if (score > maxScore) {
             maxScore = score;
@@ -603,15 +689,30 @@ class _DashboardScreenState extends State<DashboardScreen> {
         }
       }
 
-      // Lowered threshold to 0.30 to account for dropped frames/lag
-      return (maxScore > 0.30 && bestIdx != -1) ? _labels![bestIdx].trim() : "Unknown Breed";
+      // --- DIAGNOSTICS: PRINT TO VS CODE TERMINAL ---
+      debugPrint("====== AI DIAGNOSTICS ======");
+      debugPrint("Max Confidence Score: $maxScore");
+      debugPrint("Winning Class Index: $bestIdx");
+      debugPrint("Total Labels in txt: ${_labels!.length}");
+      debugPrint("============================");
+
+      // --- DIAGNOSTICS: FORCE SHOW RESULT ON SCREEN ---
+      if (bestIdx != -1) {
+        if (bestIdx < _labels!.length) {
+          return _labels![bestIdx].trim(); // It matched a label in your txt file
+        } else {
+          return "Model Guessed Class #$bestIdx"; // It guessed a class not in your txt file
+        }
+      }
+
+      return "Unknown Breed";
     } catch (e) {
       debugPrint("Inference Error: $e");
       return "Inference Error";
     }
   }
 
-  // UPDATED: Removed BuildContext argument to rely on the safe class-level context
+  // Removed BuildContext argument to rely on the safe class-level context
   Future<void> _scanCattle(ImageSource source) async {
     try {
       final ImagePicker picker = ImagePicker();
@@ -775,7 +876,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   _dashButton(Icons.book_outlined, translate('dash_library'), () => Navigator.push(context, MaterialPageRoute(builder: (context) => const BreedLibraryScreen()))),
                   if (widget.isAdmin) ...[
                     const SizedBox(height: 20),
-                    _dashButton(Icons.badge_outlined, translate('dash_aadhar'), () {}),
+                    // CONNECTED BUTTON TO NEW REGISTRATION SCREEN
+                    _dashButton(Icons.badge_outlined, translate('dash_aadhar'), () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => const PashuAadhaarRegistrationScreen()));
+                    }),
                   ],
                 ],
               ),
@@ -991,4 +1095,147 @@ Widget _actionButton(String label, VoidCallback onTap) {
       ),
     ),
   );
+}
+
+// --- 11. PASHU AADHAAR REGISTRATION SCREEN (ADMIN ONLY) ---
+class PashuAadhaarRegistrationScreen extends StatefulWidget {
+  const PashuAadhaarRegistrationScreen({super.key});
+
+  @override
+  State<PashuAadhaarRegistrationScreen> createState() => _PashuAadhaarRegistrationScreenState();
+}
+
+class _PashuAadhaarRegistrationScreenState extends State<PashuAadhaarRegistrationScreen> {
+  final _pashuIdController = TextEditingController();
+  final _farmerAadhaarController = TextEditingController();
+  final _breedController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
+
+  bool _isLoading = false;
+  bool _addMoreCattle = false; // <-- State variable for the checkbox
+
+  Future<void> _handleRegistration() async {
+    if (_formKey.currentState!.validate()) {
+      setState(() => _isLoading = true);
+
+      // 1. Capture inputs
+      String pashuId = _pashuIdController.text.trim();
+      String farmerId = _farmerAadhaarController.text.trim();
+      String breed = _breedController.text.trim();
+
+      // 2. Call the validation and insertion logic from MongoDB
+      Map<String, dynamic> result = await MongoDatabase.registerCattleSafe(pashuId, farmerId, breed);
+
+      if (!mounted) return;
+      setState(() => _isLoading = false);
+
+      // 3. Handle the UI response based on the strict check
+      if (result['success'] == true) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(result['message']), backgroundColor: Colors.green),
+        );
+
+        // <-- Checkbox logic: clear only specific fields if true
+        if (_addMoreCattle) {
+          setState(() {
+            _pashuIdController.clear();
+            _breedController.clear();
+            // Farmer Aadhaar is intentionally NOT cleared here.
+          });
+        } else {
+          Navigator.pop(context); // Go back to dashboard on success
+        }
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(result['message'], style: const TextStyle(fontWeight: FontWeight.bold)),
+            backgroundColor: Colors.red,
+            duration: const Duration(seconds: 4),
+          ),
+        );
+      }
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        backgroundColor: const Color(0xFF64DD17),
+        iconTheme: const IconThemeData(color: Colors.white),
+        title: const Text("Register Pashu Aadhaar", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+      ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(30.0),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                    "Link Cattle to Owner",
+                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Color(0xFF64DD17))
+                ),
+                const SizedBox(height: 10),
+                const Text(
+                  "Enter the 12-digit Pashu Aadhaar to verify existence before linking.",
+                  style: TextStyle(color: Colors.grey, fontSize: 14),
+                ),
+                const SizedBox(height: 30),
+
+                TextFormField(
+                  controller: _pashuIdController,
+                  keyboardType: TextInputType.number,
+                  maxLength: 12,
+                  decoration: _inputDecoration("12-Digit Pashu Aadhaar UID"),
+                  validator: (v) => (v == null || v.length != 12) ? "Exactly 12 digits required" : null,
+                ),
+                const SizedBox(height: 15),
+
+                TextFormField(
+                  controller: _farmerAadhaarController,
+                  keyboardType: TextInputType.number,
+                  maxLength: 12,
+                  decoration: _inputDecoration("Owner's 12-Digit Aadhaar"),
+                  validator: (v) => (v == null || v.length != 12) ? "Exactly 12 digits required" : null,
+                ),
+                const SizedBox(height: 15),
+
+                TextFormField(
+                  controller: _breedController,
+                  decoration: _inputDecoration("Cattle Breed (e.g., Gir, Sahiwal)"),
+                  validator: (v) => v == null || v.isEmpty ? translate('field_req') : null,
+                ),
+                const SizedBox(height: 15),
+
+                // <-- New Checkbox UI element
+                CheckboxListTile(
+                  title: const Text(
+                      "Register another cattle for this owner?",
+                      style: TextStyle(color: Color(0xFF64DD17), fontWeight: FontWeight.bold)
+                  ),
+                  value: _addMoreCattle,
+                  activeColor: const Color(0xFF64DD17),
+                  controlAffinity: ListTileControlAffinity.leading,
+                  contentPadding: EdgeInsets.zero,
+                  onChanged: (bool? value) {
+                    setState(() {
+                      _addMoreCattle = value ?? false;
+                    });
+                  },
+                ),
+                const SizedBox(height: 25),
+
+                _isLoading
+                    ? const Center(child: CircularProgressIndicator(color: Color(0xFF64DD17)))
+                    : _actionButton("Verify & Register", _handleRegistration),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
 }
