@@ -78,6 +78,10 @@ String translate(String key) {
       'welcome_user': 'Welcome!',
       'no_cattles': 'No cattles saved yet.',
       'cattle_record': 'Cattle Record #',
+      // NEW LIBRARY & FILTER KEYS
+      'lib_title': 'Top 10 Indigenous Breeds', 'lib_origin': 'Origin', 'lib_milk': 'Milk Yield',
+      'lib_weight': 'Weight', 'lib_height': 'Height', 'lib_lifespan': 'Lifespan', 'lib_appearance': 'Appearance',
+      'filter_all': 'All', 'filter_cow': 'Cow', 'filter_buffalo': 'Buffalo'
     },
     'hi': {
       'select_lang': 'भाषा चुनें',
@@ -111,6 +115,10 @@ String translate(String key) {
       'welcome_user': 'स्वागत है!',
       'no_cattles': 'अभी तक कोई पशु नहीं बचाया गया है।',
       'cattle_record': 'पशु रिकॉर्ड #',
+      // NEW LIBRARY & FILTER KEYS
+      'lib_title': 'शीर्ष 10 स्वदेशी नस्लें', 'lib_origin': 'मूल स्थान', 'lib_milk': 'दूध उत्पादन',
+      'lib_weight': 'वजन', 'lib_height': 'ऊँचाई', 'lib_lifespan': 'जीवनकाल', 'lib_appearance': 'दिखावट',
+      'filter_all': 'सभी', 'filter_cow': 'गाय', 'filter_buffalo': 'भैंस'
     },
     'mr': {
       'select_lang': 'भाषा निवडा',
@@ -144,6 +152,10 @@ String translate(String key) {
       'welcome_user': 'स्वागत आहे!',
       'no_cattles': 'अद्याप कोणतेही पशु जतन केलेले नाहीत.',
       'cattle_record': 'पशु रेकॉर्ड #',
+      // NEW LIBRARY & FILTER KEYS
+      'lib_title': 'शीर्ष 10 देशी जाती', 'lib_origin': 'मूळ स्थान', 'lib_milk': 'दूध उत्पादन',
+      'lib_weight': 'वजन', 'lib_height': 'उंची', 'lib_lifespan': 'आयुर्मान', 'lib_appearance': 'स्वरूप',
+      'filter_all': 'सर्व', 'filter_cow': 'गाय', 'filter_buffalo': 'म्हैस'
     },
   };
   return dictionary[appLanguage.value]?[key] ?? key;
@@ -576,121 +588,70 @@ class _DashboardScreenState extends State<DashboardScreen> {
     }
   }
 
-  // --- UPDATED: Robust Breed Database & Matcher ---
+  // --- UPDATED: AI Scanner Breed Database ---
   Map<String, String> getBreedInfo(String breedName) {
-    // 1. Clean the incoming string from the AI (make lowercase, remove extra spaces)
     String searchKey = breedName.toLowerCase().trim();
 
-    // 2. Expanded database of Indian Cattle Breeds
     Map<String, Map<String, String>> breedData = {
       'gir': {
-        'type': 'Cow',
-        'origin': 'Gujarat (Saurashtra)',
-        'lifespan': '12-15 years',
-        'milk': '12-20 Liters/day',
-        'weight': '385kg - 545kg',
-        'height': '130 - 140 cm',
+        'type': 'Cow', 'origin': 'Gujarat (Saurashtra)', 'lifespan': '12-15 years',
+        'milk': '12-20 Liters/day', 'weight': '385kg - 545kg', 'height': '130 - 140 cm',
         'appearance': 'Convex forehead, long pendulous ears, red/spotted.'
       },
       'sahiwal': {
-        'type': 'Cow',
-        'origin': 'Punjab/Haryana',
-        'lifespan': '14-16 years',
-        'milk': '10-15 Liters/day',
-        'weight': '400kg - 500kg',
-        'height': '120 - 130 cm',
+        'type': 'Cow', 'origin': 'Punjab/Haryana', 'lifespan': '14-16 years',
+        'milk': '10-15 Liters/day', 'weight': '400kg - 500kg', 'height': '120 - 130 cm',
         'appearance': 'Reddish brown color, heavy skin folds, prominent dewlap.'
       },
-      'murrah': {
-        'type': 'Buffalo',
-        'origin': 'Haryana (Rohtak, Hisar)',
-        'lifespan': '18-20 years',
-        'milk': '15-25 Liters/day',
-        'weight': '450kg - 800kg',
-        'height': '135 - 145 cm',
-        'appearance': 'Jet black body, tightly curved horns.'
+      'kankrej': {
+        'type': 'Cow', 'origin': 'Gujarat/Rajasthan', 'lifespan': '12-16 years',
+        'milk': '8-10 Liters/day', 'weight': '420kg - 590kg', 'height': '130 - 140 cm',
+        'appearance': 'Silver-grey to iron-grey, large strong crescent horns.'
+      },
+      'ongole': {
+        'type': 'Cow', 'origin': 'Andhra Pradesh', 'lifespan': '15-20 years',
+        'milk': '5-8 Liters/day', 'weight': '430kg - 500kg', 'height': '135 - 150 cm',
+        'appearance': 'Glossy white, huge hump, short horns, muscular build.'
       },
       'red sindhi': {
-        'type': 'Cow',
-        'origin': 'Sindh/Rajasthan',
-        'lifespan': '12-15 years',
-        'milk': '12-18 Liters/day',
-        'weight': '300kg - 450kg',
-        'height': '115 - 130 cm',
+        'type': 'Cow', 'origin': 'Sindh/Rajasthan', 'lifespan': '12-15 years',
+        'milk': '12-18 Liters/day', 'weight': '300kg - 450kg', 'height': '115 - 130 cm',
         'appearance': 'Deep red color, compact frame, thick horns.'
       },
       'tharparkar': {
-        'type': 'Cow',
-        'origin': 'Rajasthan',
-        'lifespan': '14-18 years',
-        'milk': '10-14 Liters/day',
-        'weight': '400kg - 500kg',
-        'height': '120 - 140 cm',
+        'type': 'Cow', 'origin': 'Rajasthan', 'lifespan': '14-18 years',
+        'milk': '10-14 Liters/day', 'weight': '400kg - 500kg', 'height': '120 - 140 cm',
         'appearance': 'White/light grey color, lyre-shaped horns.'
       },
-      'ongole': {
-        'type': 'Cow',
-        'origin': 'Andhra Pradesh',
-        'lifespan': '15-20 years',
-        'milk': '5-8 Liters/day',
-        'weight': '430kg - 500kg',
-        'height': '135 - 150 cm',
-        'appearance': 'Glossy white, huge hump, short horns, muscular build.'
-      },
-      'kankrej': {
-        'type': 'Cow',
-        'origin': 'Gujarat/Rajasthan',
-        'lifespan': '12-16 years',
-        'milk': '8-10 Liters/day',
-        'weight': '420kg - 590kg',
-        'height': '130 - 140 cm',
-        'appearance': 'Silver-grey to iron-grey, large strong crescent horns.'
+      'rathi': {
+        'type': 'Cow', 'origin': 'Rajasthan', 'lifespan': '13-15 years',
+        'milk': '8-12 Liters/day', 'weight': '280kg - 350kg', 'height': '115 - 125 cm',
+        'appearance': 'Brown with white patches, medium horns, efficient in arid regions.'
       },
       'hariana': {
-        'type': 'Cow',
-        'origin': 'Haryana',
-        'lifespan': '14-18 years',
-        'milk': '8-12 Liters/day',
-        'weight': '350kg - 500kg',
-        'height': '130 - 140 cm',
+        'type': 'Cow', 'origin': 'Haryana', 'lifespan': '14-18 years',
+        'milk': '8-12 Liters/day', 'weight': '350kg - 500kg', 'height': '130 - 140 cm',
         'appearance': 'White or light grey, long narrow face, small horns.'
       },
       'deoni': {
-        'type': 'Cow',
-        'origin': 'Maharashtra/Karnataka',
-        'lifespan': '12-15 years',
-        'milk': '6-10 Liters/day',
-        'weight': '400kg - 500kg',
-        'height': '120 - 135 cm',
+        'type': 'Cow', 'origin': 'Maharashtra/Karnataka', 'lifespan': '12-15 years',
+        'milk': '6-10 Liters/day', 'weight': '400kg - 500kg', 'height': '120 - 135 cm',
         'appearance': 'Black and white patches, prominent forehead, drooping ears.'
       },
-      'khillari': {
-        'type': 'Cow (Draught)',
-        'origin': 'Maharashtra',
-        'lifespan': '10-14 years',
-        'milk': '2-4 Liters/day',
-        'weight': '350kg - 450kg',
-        'height': '120 - 135 cm',
-        'appearance': 'Greyish-white, long sweeping horns, quick and spirited.'
+      'malnad gidda': {
+        'type': 'Cow (Dwarf)', 'origin': 'Karnataka', 'lifespan': '10-14 years',
+        'milk': '2-4 Liters/day', 'weight': '120kg - 200kg', 'height': '90 - 100 cm',
+        'appearance': 'Small/dwarf stature, highly disease resistant, agile.'
       }
     };
 
-    // 3. Smart Matching: Check if the AI's label contains the key
-    // This handles strings like "01_Gir_Cow" or "sahiwal" dynamically
     for (String key in breedData.keys) {
-      if (searchKey.contains(key)) {
-        return breedData[key]!;
-      }
+      if (searchKey.contains(key)) return breedData[key]!;
     }
 
-    // 4. Default Fallback (Only shows if the model returns something completely unknown)
     return {
-      'type': 'Cattle',
-      'origin': 'Unknown/Mixed',
-      'lifespan': '10-20 years',
-      'milk': 'Data unavailable',
-      'weight': 'Data unavailable',
-      'height': 'Data unavailable',
+      'type': 'Cattle', 'origin': 'Unknown/Mixed', 'lifespan': '10-20 years',
+      'milk': 'Data unavailable', 'weight': 'Data unavailable', 'height': 'Data unavailable',
       'appearance': 'Could not accurately pull specific breed traits.'
     };
   }
@@ -753,7 +714,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
       double maxScore = -1;
       int bestIdx = -1;
 
-      // Since outputElements is 36, and 4 are bounding box coords, the model has 32 classes
       int totalModelClasses = 32;
 
       for (int i = 0; i < 8400; i++) {
@@ -766,19 +726,17 @@ class _DashboardScreenState extends State<DashboardScreen> {
         }
       }
 
-      // --- DIAGNOSTICS: PRINT TO VS CODE TERMINAL ---
       debugPrint("====== AI DIAGNOSTICS ======");
       debugPrint("Max Confidence Score: $maxScore");
       debugPrint("Winning Class Index: $bestIdx");
       debugPrint("Total Labels in txt: ${_labels!.length}");
       debugPrint("============================");
 
-      // --- DIAGNOSTICS: FORCE SHOW RESULT ON SCREEN ---
       if (bestIdx != -1) {
         if (bestIdx < _labels!.length) {
-          return _labels![bestIdx].trim(); // It matched a label in your txt file
+          return _labels![bestIdx].trim();
         } else {
-          return "Model Guessed Class #$bestIdx"; // It guessed a class not in your txt file
+          return "Model Guessed Class #$bestIdx";
         }
       }
 
@@ -789,7 +747,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
     }
   }
 
-  // Removed BuildContext argument to rely on the safe class-level context
   Future<void> _scanCattle(ImageSource source) async {
     try {
       final ImagePicker picker = ImagePicker();
@@ -813,7 +770,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
         if (croppedFile != null) {
           String breed = await _performAIClassification(croppedFile.path);
 
-          // BuildContext Fix: Abort if the screen is closed before AI finishes
           if (!mounted) return;
 
           savedCattles.value = List.from(savedCattles.value)..add(croppedFile.path);
@@ -825,7 +781,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
     }
   }
 
-  // INTERFACE LOADED AFTER AI DETECTION
   void _showResultDialog(BuildContext context, String breed, String imagePath) {
     final details = getBreedInfo(breed);
     showDialog(
@@ -854,7 +809,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     padding: const EdgeInsets.all(16),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(8),
-                      child: Image.file(File(imagePath), height: 200, width: double.infinity, fit: BoxFit.cover),
+                      // Added BoxFit.contain here too!
+                      child: Image.file(File(imagePath), height: 200, width: double.infinity, fit: BoxFit.contain),
                     ),
                   ),
                   Padding(
@@ -953,7 +909,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   _dashButton(Icons.book_outlined, translate('dash_library'), () => Navigator.push(context, MaterialPageRoute(builder: (context) => const BreedLibraryScreen()))),
                   if (widget.isAdmin) ...[
                     const SizedBox(height: 20),
-                    // CONNECTED BUTTON TO NEW REGISTRATION SCREEN
                     _dashButton(Icons.badge_outlined, translate('dash_aadhar'), () {
                       Navigator.push(context, MaterialPageRoute(builder: (context) => const PashuAadhaarRegistrationScreen()));
                     }),
@@ -1042,89 +997,224 @@ class SavedCattlesScreen extends StatelessWidget {
   }
 }
 
-// --- 9. BREED LIBRARY SCREEN ---
-class BreedLibraryScreen extends StatelessWidget {
+// --- 9. BREED LIBRARY SCREEN (NOW STATEFUL WITH FILTERS!) ---
+class BreedLibraryScreen extends StatefulWidget {
   const BreedLibraryScreen({super.key});
 
-  final List<Map<String, String>> breeds = const [
-    {
-      'name': 'Gir',
-      'origin': 'Gujarat',
-      'desc': 'The Gir is one of the principal Zebu breeds originating in India. It has been used locally in the improvement of other breeds and is famous for its tolerance to tropical diseases.'
-    },
-    {
-      'name': 'Sahiwal',
-      'origin': 'Punjab/Haryana',
-      'desc': 'Sahiwal is a breed of Zebu cattle, primarily used in dairy production. It originated from the Sahiwal district of Punjab. They are heavily built and known for high milk fat content.'
-    },
-    {
-      'name': 'Red Sindhi',
-      'origin': 'Sindh region',
-      'desc': 'Red Sindhi cattle are the most popular of all Zebu dairy breeds. The breed originated in the Sindh province of Pakistan but is widely kept for milk production across India.'
-    },
-    {
-      'name': 'Murrah (Buffalo)',
-      'origin': 'Haryana',
-      'desc': 'The Murrah buffalo is a breed of domestic buffalo kept for dairy production. It is originally from Haryana but is used to improve the milk yield of dairy buffalo in other regions.'
-    },
-    {
-      'name': 'Tharparkar',
-      'origin': 'Rajasthan',
-      'desc': 'Tharparkar is a dual-purpose breed of cattle known for its milk-producing capacity and its ability to work as a draft animal. It is extremely hardy and heat-tolerant.'
-    },
-    {
-      'name': 'Ongole',
-      'origin': 'Andhra Pradesh',
-      'desc': 'The Ongole breed of cattle is world-famous. They are known for their toughness, high milk yield, rapid growth rate, and natural resistance to several tropical diseases.'
-    },
-  ];
+  @override
+  State<BreedLibraryScreen> createState() => _BreedLibraryScreenState();
+}
+
+class _BreedLibraryScreenState extends State<BreedLibraryScreen> {
+  // Current active filter
+  String _selectedFilter = 'All';
+
+  List<Map<String, String>> getLocalizedBreeds(String lang) {
+    // Hidden 'category' key used strictly for filtering logic so it works regardless of the selected language
+    if (lang == 'hi') {
+      return [
+        {'category': 'Cow', 'name': 'गिर', 'type': 'गाय', 'origin': 'गुजरात', 'lifespan': '12-15 वर्ष', 'milk': '12-20 लीटर/दिन', 'weight': '385-545 किग्रा', 'height': '130-140 सेमी', 'appearance': 'उत्तल माथा, लंबे लटकते कान, लाल/धब्बेदार।', 'image': 'assets/breeds/gir.jpg'},
+        {'category': 'Cow', 'name': 'साहीवाल', 'type': 'गाय', 'origin': 'पंजाब/हरियाणा', 'lifespan': '14-16 वर्ष', 'milk': '10-15 लीटर/दिन', 'weight': '400-500 किग्रा', 'height': '120-130 सेमी', 'appearance': 'लाल-भूरा रंग, भारी त्वचा की सिलवटें।', 'image': 'assets/breeds/sahiwal.jpg'},
+        {'category': 'Cow', 'name': 'कांक्रेज', 'type': 'गाय', 'origin': 'गुजरात/राजस्थान', 'lifespan': '12-16 वर्ष', 'milk': '8-10 लीटर/दिन', 'weight': '420-590 किग्रा', 'height': '130-140 सेमी', 'appearance': 'चांदी-भूरा रंग, बड़े मजबूत सींग।', 'image': 'assets/breeds/kankrej.jpg'},
+        {'category': 'Cow', 'name': 'ओंगोल', 'type': 'गाय', 'origin': 'आंध्र प्रदेश', 'lifespan': '15-20 वर्ष', 'milk': '5-8 लीटर/दिन', 'weight': '430-500 किग्रा', 'height': '135-150 सेमी', 'appearance': 'सफेद रंग, बड़ा कूबड़, मांसल शरीर।', 'image': 'assets/breeds/ongole.jpg'},
+        {'category': 'Cow', 'name': 'लाल सिंधी', 'type': 'गाय', 'origin': 'सिंध/राजस्थान', 'lifespan': '12-15 वर्ष', 'milk': '12-18 लीटर/दिन', 'weight': '300-450 किग्रा', 'height': '115-130 सेमी', 'appearance': 'गहरा लाल रंग, गठीला शरीर, मोटे सींग।', 'image': 'assets/breeds/red_sindhi.jpg'},
+        {'category': 'Cow', 'name': 'थारपारकर', 'type': 'गाय', 'origin': 'राजस्थान', 'lifespan': '14-18 वर्ष', 'milk': '10-14 लीटर/दिन', 'weight': '400-500 किग्रा', 'height': '120-140 सेमी', 'appearance': 'सफेद/हल्का भूरा रंग।', 'image': 'assets/breeds/tharparkar.jpg'},
+        {'category': 'Cow', 'name': 'राठी', 'type': 'गाय', 'origin': 'राजस्थान', 'lifespan': '13-15 वर्ष', 'milk': '8-12 लीटर/दिन', 'weight': '280-350 किग्रा', 'height': '115-125 सेमी', 'appearance': 'सफेद धब्बों के साथ भूरा रंग।', 'image': 'assets/breeds/rathi.jpg'},
+        {'category': 'Cow', 'name': 'हरियाणवी', 'type': 'गाय', 'origin': 'हरियाणा', 'lifespan': '14-18 वर्ष', 'milk': '8-12 लीटर/दिन', 'weight': '350-500 किग्रा', 'height': '130-140 सेमी', 'appearance': 'सफेद या हल्का भूरा, लंबा चेहरा।', 'image': 'assets/breeds/hariana.jpg'},
+        {'category': 'Cow', 'name': 'देओनी', 'type': 'गाय', 'origin': 'महाराष्ट्र/कर्नाटक', 'lifespan': '12-15 वर्ष', 'milk': '6-10 लीटर/दिन', 'weight': '400-500 किग्रा', 'height': '120-135 सेमी', 'appearance': 'काले और सफेद धब्बे, लटकते कान।', 'image': 'assets/breeds/deoni.jpg'},
+        {'category': 'Cow', 'name': 'मलनाड गिड्डा', 'type': 'गाय (बौनी)', 'origin': 'कर्नाटक', 'lifespan': '10-14 वर्ष', 'milk': '2-4 लीटर/दिन', 'weight': '120-200 किग्रा', 'height': '90-100 सेमी', 'appearance': 'छोटा कद, रोग प्रतिरोधी, फुर्तीली।', 'image': 'assets/breeds/malnad_gidda.jpg'},
+        {'category': 'Buffalo', 'name': 'मुर्रा', 'type': 'भैंस', 'origin': 'हरियाणा', 'lifespan': '18-20 वर्ष', 'milk': '15-25 लीटर/दिन', 'weight': '450-800 किग्रा', 'height': '135-145 सेमी', 'appearance': 'जेट काला शरीर, कसकर घुमावदार सींग।', 'image': 'assets/breeds/murrah.jpg'},
+        {'category': 'Buffalo', 'name': 'पंढरपुरी', 'type': 'भैंस', 'origin': 'महाराष्ट्र', 'lifespan': '15-18 वर्ष', 'milk': '8-12 लीटर/दिन', 'weight': '400-450 किग्रा', 'height': '125-135 सेमी', 'appearance': 'लंबे और घुमावदार सींग, मध्यम आकार।', 'image': 'assets/breeds/pandharpuri.jpg'}
+      ];
+    } else if (lang == 'mr') {
+      return [
+        {'category': 'Cow', 'name': 'गीर', 'type': 'गाय', 'origin': 'गुजरात', 'lifespan': '12-15 वर्षे', 'milk': '12-20 लिटर/दिवस', 'weight': '385-545 किलो', 'height': '130-140 सेमी', 'appearance': 'बहिर्वक्र कपाळ, लांब लोंबकळणारे कान, लाल/ठिपकेदार.', 'image': 'assets/breeds/gir.jpg'},
+        {'category': 'Cow', 'name': 'साहीवाल', 'type': 'गाय', 'origin': 'पंजाब/हरियाणा', 'lifespan': '14-16 वर्षे', 'milk': '10-15 लिटर/दिवस', 'weight': '400-500 किलो', 'height': '120-130 सेमी', 'appearance': 'लाल-तपकिरी रंग, त्वचेच्या घड्या.', 'image': 'assets/breeds/sahiwal.jpg'},
+        {'category': 'Cow', 'name': 'कांकरेज', 'type': 'गाय', 'origin': 'गुजरात/राजस्थान', 'lifespan': '12-16 वर्षे', 'milk': '8-10 लिटर/दिवस', 'weight': '420-590 किलो', 'height': '130-140 सेमी', 'appearance': 'चांदी-तपकिरी रंग, मोठी मजबूत शिंगे.', 'image': 'assets/breeds/kankrej.jpg'},
+        {'category': 'Cow', 'name': 'ओंगोल', 'type': 'गाय', 'origin': 'आंध्र प्रदेश', 'lifespan': '15-20 वर्षे', 'milk': '5-8 लिटर/दिवस', 'weight': '430-500 किलो', 'height': '135-150 सेमी', 'appearance': 'पांढरा रंग, मोठे वशिंड, मजबूत शरीर.', 'image': 'assets/breeds/ongole.jpg'},
+        {'category': 'Cow', 'name': 'लाल सिंधी', 'type': 'गाय', 'origin': 'सिंध/राजस्थान', 'lifespan': '12-15 वर्षे', 'milk': '12-18 लिटर/दिवस', 'weight': '300-450 किलो', 'height': '115-130 सेमी', 'appearance': 'गडद लाल रंग, कॉम्पॅक्ट फ्रेम.', 'image': 'assets/breeds/red_sindhi.jpg'},
+        {'category': 'Cow', 'name': 'थारपारकर', 'type': 'गाय', 'origin': 'राजस्थान', 'lifespan': '14-18 वर्षे', 'milk': '10-14 लिटर/दिवस', 'weight': '400-500 किलो', 'height': '120-140 सेमी', 'appearance': 'पांढरा/फिकट राखाडी रंग.', 'image': 'assets/breeds/tharparkar.jpg'},
+        {'category': 'Cow', 'name': 'राठी', 'type': 'गाय', 'origin': 'राजस्थान', 'lifespan': '13-15 वर्षे', 'milk': '8-12 लिटर/दिवस', 'weight': '280-350 किलो', 'height': '115-125 सेमी', 'appearance': 'पांढऱ्या ठिपक्यांसह तपकिरी रंग.', 'image': 'assets/breeds/rathi.jpg'},
+        {'category': 'Cow', 'name': 'हरियाणवी', 'type': 'गाय', 'origin': 'हरियाणा', 'lifespan': '14-18 वर्षे', 'milk': '8-12 लिटर/दिवस', 'weight': '350-500 किलो', 'height': '130-140 सेमी', 'appearance': 'पांढरा किंवा फिकट राखाडी, लांब चेहरा.', 'image': 'assets/breeds/hariana.jpg'},
+        {'category': 'Cow', 'name': 'देवणी', 'type': 'गाय', 'origin': 'महाराष्ट्र/कर्नाटक', 'lifespan': '12-15 वर्षे', 'milk': '6-10 लिटर/दिवस', 'weight': '400-500 किलो', 'height': '120-135 सेमी', 'appearance': 'काळे आणि पांढरे ठिपके, लोंबकळणारे कान.', 'image': 'assets/breeds/deoni.jpg'},
+        {'category': 'Cow', 'name': 'मलनाड गिड्डा', 'type': 'गाय (बुटकी)', 'origin': 'कर्नाटक', 'lifespan': '10-14 वर्षे', 'milk': '2-4 लिटर/दिवस', 'weight': '120-200 किलो', 'height': '90-100 सेमी', 'appearance': 'लहान उंची, रोगप्रतिकारक, चपळ.', 'image': 'assets/breeds/malnad_gidda.jpg'},
+        {'category': 'Buffalo', 'name': 'मुर्रा', 'type': 'म्हैस', 'origin': 'हरियाणा', 'lifespan': '18-20 वर्षे', 'milk': '15-25 लिटर/दिवस', 'weight': '450-800 किलो', 'height': '135-145 सेमी', 'appearance': 'गडद काळा रंग, वळलेली शिंगे.', 'image': 'assets/breeds/murrah.jpg'},
+        {'category': 'Buffalo', 'name': 'पंढरपुरी', 'type': 'म्हैस', 'origin': 'महाराष्ट्र', 'lifespan': '15-18 वर्षे', 'milk': '8-12 लिटर/दिवस', 'weight': '400-450 किलो', 'height': '125-135 सेमी', 'appearance': 'लांब आणि वळलेली शिंगे.', 'image': 'assets/breeds/pandharpuri.jpg'}
+      ];
+    }
+    // Default English
+    return [
+      {'category': 'Cow', 'name': 'Gir', 'type': 'Cow', 'origin': 'Gujarat', 'lifespan': '12-15 years', 'milk': '12-20 Liters/day', 'weight': '385-545kg', 'height': '130-140 cm', 'appearance': 'Convex forehead, long pendulous ears, red/spotted.', 'image': 'assets/breeds/gir.jpg'},
+      {'category': 'Cow', 'name': 'Sahiwal', 'type': 'Cow', 'origin': 'Punjab/Haryana', 'lifespan': '14-16 years', 'milk': '10-15 Liters/day', 'weight': '400-500kg', 'height': '120-130 cm', 'appearance': 'Reddish brown color, heavy skin folds, prominent dewlap.', 'image': 'assets/breeds/sahiwal.jpg'},
+      {'category': 'Cow', 'name': 'Kankrej', 'type': 'Cow', 'origin': 'Gujarat/Rajasthan', 'lifespan': '12-16 years', 'milk': '8-10 Liters/day', 'weight': '420-590kg', 'height': '130-140 cm', 'appearance': 'Silver-grey to iron-grey, large strong crescent horns.', 'image': 'assets/breeds/kankrej.jpg'},
+      {'category': 'Cow', 'name': 'Ongole', 'type': 'Cow', 'origin': 'Andhra Pradesh', 'lifespan': '15-20 years', 'milk': '5-8 Liters/day', 'weight': '430-500kg', 'height': '135-150 cm', 'appearance': 'Glossy white, huge hump, short horns, muscular build.', 'image': 'assets/breeds/ongole.jpg'},
+      {'category': 'Cow', 'name': 'Red Sindhi', 'type': 'Cow', 'origin': 'Sindh/Rajasthan', 'lifespan': '12-15 years', 'milk': '12-18 Liters/day', 'weight': '300-450kg', 'height': '115-130 cm', 'appearance': 'Deep red color, compact frame, thick horns.', 'image': 'assets/breeds/red_sindhi.jpg'},
+      {'category': 'Cow', 'name': 'Tharparkar', 'type': 'Cow', 'origin': 'Rajasthan', 'lifespan': '14-18 years', 'milk': '10-14 Liters/day', 'weight': '400-500kg', 'height': '120-140 cm', 'appearance': 'White/light grey color, lyre-shaped horns.', 'image': 'assets/breeds/tharparkar.jpg'},
+      {'category': 'Cow', 'name': 'Rathi', 'type': 'Cow', 'origin': 'Rajasthan', 'lifespan': '13-15 years', 'milk': '8-12 Liters/day', 'weight': '280-350kg', 'height': '115-125 cm', 'appearance': 'Brown with white patches, medium horns, efficient in arid regions.', 'image': 'assets/breeds/rathi.jpg'},
+      {'category': 'Cow', 'name': 'Hariana', 'type': 'Cow', 'origin': 'Haryana', 'lifespan': '14-18 years', 'milk': '8-12 Liters/day', 'weight': '350-500kg', 'height': '130-140 cm', 'appearance': 'White or light grey, long narrow face, small horns.', 'image': 'assets/breeds/hariana.jpg'},
+      {'category': 'Cow', 'name': 'Deoni', 'type': 'Cow', 'origin': 'Maharashtra/Karnataka', 'lifespan': '12-15 years', 'milk': '6-10 Liters/day', 'weight': '400-500kg', 'height': '120-135 cm', 'appearance': 'Black and white patches, prominent forehead, drooping ears.', 'image': 'assets/breeds/deoni.jpg'},
+      {'category': 'Cow', 'name': 'Malnad Gidda', 'type': 'Cow (Dwarf)', 'origin': 'Karnataka', 'lifespan': '10-14 years', 'milk': '2-4 Liters/day', 'weight': '120-200kg', 'height': '90-100 cm', 'appearance': 'Small/dwarf stature, highly disease resistant, agile.', 'image': 'assets/breeds/malnad_gidda.jpg'},
+      {'category': 'Buffalo', 'name': 'Murrah', 'type': 'Buffalo', 'origin': 'Haryana', 'lifespan': '18-20 years', 'milk': '15-25 Liters/day', 'weight': '450-800kg', 'height': '135-145 cm', 'appearance': 'Jet black body, tightly curved horns.', 'image': 'assets/breeds/murrah.jpg'},
+      {'category': 'Buffalo', 'name': 'Pandharpuri', 'type': 'Buffalo', 'origin': 'Maharashtra', 'lifespan': '15-18 years', 'milk': '8-12 Liters/day', 'weight': '400-450kg', 'height': '125-135 cm', 'appearance': 'Long, sweeping, curved horns.', 'image': 'assets/breeds/pandharpuri.jpg'}
+    ];
+  }
 
   @override
   Widget build(BuildContext context) {
+    String currentLang = appLanguage.value;
+
+    // Get all breeds
+    List<Map<String, String>> allBreeds = getLocalizedBreeds(currentLang);
+
+    // Apply filter
+    List<Map<String, String>> filteredList = allBreeds.where((breed) {
+      if (_selectedFilter == 'All') return true;
+      return breed['category'] == _selectedFilter;
+    }).toList();
+
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.grey[100],
       appBar: AppBar(
         backgroundColor: const Color(0xFF64DD17),
         iconTheme: const IconThemeData(color: Colors.white),
-        title: const Text("Indigenous Breed Library", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+        title: Text(translate('lib_title'), style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
       ),
-      body: ListView.builder(
-        padding: const EdgeInsets.all(16),
-        itemCount: breeds.length,
-        itemBuilder: (context, index) {
-          return Card(
-            elevation: 4,
-            margin: const EdgeInsets.only(bottom: 16),
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+      body: Column(
+        children: [
+          // --- FILTER CHIPS UI ---
+          Container(
+            padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+            color: Colors.white,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Container(
-                    height: 180,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                        color: Colors.grey[300],
-                        borderRadius: const BorderRadius.vertical(top: Radius.circular(15))
-                    ),
-                    child: const Icon(Icons.pets, size: 60, color: Colors.grey)
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(20),
+                _buildFilterChip('All', translate('filter_all')),
+                _buildFilterChip('Cow', translate('filter_cow')),
+                _buildFilterChip('Buffalo', translate('filter_buffalo')),
+              ],
+            ),
+          ),
+
+          // --- FILTERED LIST ---
+          Expanded(
+            child: ListView.builder(
+              padding: const EdgeInsets.all(16),
+              itemCount: filteredList.length,
+              itemBuilder: (context, index) {
+                final breed = filteredList[index];
+                return Card(
+                  elevation: 4,
+                  margin: const EdgeInsets.only(bottom: 20),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+                  color: Colors.white,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(breeds[index]['name']!, style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Color(0xFF64DD17))),
-                      const SizedBox(height: 5),
-                      Text("Origin: ${breeds[index]['origin']}", style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: Colors.grey)),
-                      const SizedBox(height: 12),
-                      Text(breeds[index]['desc']!, style: const TextStyle(fontSize: 15, height: 1.4)),
+                      Container(
+                        height: 220,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          color: Colors.grey[100],
+                          borderRadius: const BorderRadius.vertical(top: Radius.circular(15)),
+                        ),
+                        child: ClipRRect(
+                          borderRadius: const BorderRadius.vertical(top: Radius.circular(15)),
+                          child: Image.asset(
+                            breed['image']!,
+                            fit: BoxFit.contain, // Image is fully visible, not cropped!
+                            errorBuilder: (context, error, stackTrace) => Container(
+                              color: Colors.grey[200],
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  const Icon(Icons.image_not_supported, size: 50, color: Colors.grey),
+                                  const SizedBox(height: 10),
+                                  Text("Add ${breed['image']} to assets", style: const TextStyle(color: Colors.grey)),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(20),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(breed['name']!, style: const TextStyle(fontSize: 26, fontWeight: FontWeight.bold, color: Color(0xFF64DD17))),
+                                Container(
+                                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                                  decoration: BoxDecoration(color: const Color(0xFF64DD17).withOpacity(0.1), borderRadius: BorderRadius.circular(20)),
+                                  child: Text(breed['type']!, style: const TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF64DD17))),
+                                )
+                              ],
+                            ),
+                            const SizedBox(height: 15),
+                            _detailRow(Icons.location_on, translate('lib_origin'), breed['origin']!),
+                            _detailRow(Icons.water_drop, translate('lib_milk'), breed['milk']!),
+                            _detailRow(Icons.monitor_weight, translate('lib_weight'), breed['weight']!),
+                            _detailRow(Icons.height, translate('lib_height'), breed['height']!),
+                            _detailRow(Icons.favorite, translate('lib_lifespan'), breed['lifespan']!),
+                            const Padding(padding: EdgeInsets.symmetric(vertical: 10), child: Divider()),
+                            Text("${translate('lib_appearance')}:", style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: Colors.black87)),
+                            const SizedBox(height: 5),
+                            Text(breed['appearance']!, style: const TextStyle(fontSize: 15, height: 1.4, color: Colors.black54)),
+                          ],
+                        ),
+                      ),
                     ],
                   ),
-                ),
-              ],
+                );
+              },
             ),
-          );
-        },
+          ),
+        ],
+      ),
+    );
+  }
+
+  // Clickable Buttons Logic
+  Widget _buildFilterChip(String categoryValue, String displayLabel) {
+    bool isSelected = _selectedFilter == categoryValue;
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          _selectedFilter = categoryValue;
+        });
+      },
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 10),
+        decoration: BoxDecoration(
+          color: isSelected ? const Color(0xFF64DD17) : Colors.grey[200],
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(color: isSelected ? const Color(0xFF64DD17) : Colors.transparent),
+        ),
+        child: Text(
+          displayLabel,
+          style: TextStyle(
+              color: isSelected ? Colors.white : Colors.black87,
+              fontWeight: FontWeight.bold,
+              fontSize: 16
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _detailRow(IconData icon, String label, String value) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8.0),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Icon(icon, size: 20, color: Colors.grey[600]),
+          const SizedBox(width: 10),
+          Expanded(flex: 2, child: Text("$label:", style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 15, color: Colors.black87))),
+          Expanded(flex: 3, child: Text(value, style: const TextStyle(fontSize: 15, color: Colors.black54))),
+        ],
       ),
     );
   }
@@ -1189,38 +1279,33 @@ class _PashuAadhaarRegistrationScreenState extends State<PashuAadhaarRegistratio
   final _formKey = GlobalKey<FormState>();
 
   bool _isLoading = false;
-  bool _addMoreCattle = false; // <-- State variable for the checkbox
+  bool _addMoreCattle = false;
 
   Future<void> _handleRegistration() async {
     if (_formKey.currentState!.validate()) {
       setState(() => _isLoading = true);
 
-      // 1. Capture inputs
       String pashuId = _pashuIdController.text.trim();
       String farmerId = _farmerAadhaarController.text.trim();
       String breed = _breedController.text.trim();
 
-      // 2. Call the validation and insertion logic from MongoDB
       Map<String, dynamic> result = await MongoDatabase.registerCattleSafe(pashuId, farmerId, breed);
 
       if (!mounted) return;
       setState(() => _isLoading = false);
 
-      // 3. Handle the UI response based on the strict check
       if (result['success'] == true) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text(result['message']), backgroundColor: Colors.green),
         );
 
-        // <-- Checkbox logic: clear only specific fields if true
         if (_addMoreCattle) {
           setState(() {
             _pashuIdController.clear();
             _breedController.clear();
-            // Farmer Aadhaar is intentionally NOT cleared here.
           });
         } else {
-          Navigator.pop(context); // Go back to dashboard on success
+          Navigator.pop(context);
         }
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -1287,7 +1372,6 @@ class _PashuAadhaarRegistrationScreenState extends State<PashuAadhaarRegistratio
                 ),
                 const SizedBox(height: 15),
 
-                // <-- New Checkbox UI element
                 CheckboxListTile(
                   title: const Text(
                       "Register another cattle for this owner?",

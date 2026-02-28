@@ -30,3 +30,13 @@ flutter:
     - assets/farmer_cattles.png
     - assets/model/best_float16.tflite
     - assets/model/labels.txt
+    - assets/breeds/gir.jpg
+    - assets/breeds/kankrej.jpg
+    - assets/breeds/deoni.jpg
+    - assets/breeds/hariana.jpg
+    - assets/breeds/malnad_gidda.jpg
+    - assets/breeds/ongole.jpg
+    - assets/breeds/rathi.jpg
+    - assets/breeds/red_sindhi.jpg
+    - assets/breeds/sahiwal.jpg
+    - assets/breeds/tharparkar.jpg
