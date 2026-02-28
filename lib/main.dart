@@ -64,10 +64,13 @@ String translate(String key) {
       'lib_appearance': 'Appearance', 'filter_all': 'All', 'filter_cow': 'Cow', 'filter_buffalo': 'Buffalo',
       'filter_camel': 'Camel', 'coming_soon': 'Coming Soon! Camel breeds will be added in the next update.',
       'voice_btn': 'Voice Guide',
-      'voice_script': 'Welcome to the Desi Moo dashboard. Tap the first button to scan cattle. Tap the second to view saved cattle. Tap the third to open the Breed Library.',
+      'voice_script': 'Welcome to the Desi Moo dashboard. Tap the first button to scan cattle. Tap the second to view saved cattle. Tap the third to open the Breed Library. Tap the fourth to access Pashu Mandi for buying and selling.',
       'listen_btn': 'Listen to Details',
-      // <-- NEW DIALOG KEYS -->
-      'dialog_info': 'Breed Information', 'dialog_breed': 'Breed', 'dialog_type': 'Type', 'dialog_back': 'Go back'
+      'dialog_info': 'Breed Information', 'dialog_breed': 'Breed', 'dialog_type': 'Type', 'dialog_back': 'Go back',
+      'dash_market': 'Pashu Mandi (Buy/Sell)', 'market_title': 'Cattle Marketplace', 'buy_tab': 'Buy',
+      'sell_tab': 'Sell', 'price': 'Price: ₹', 'contact_seller': 'Contact Seller', 'list_cattle_btn': 'List Cattle for Sale',
+      'form_breed': 'Breed Name', 'form_age': 'Age (Years)', 'form_milk': 'Milk Capacity (Liters)', 'form_price': 'Expected Price (₹)',
+      'dialog_diet': 'Recommended Diet' // <-- NEW DIET KEY
     },
     'hi': {
       'select_lang': 'भाषा चुनें', 'welcome': 'स्वागत है!', 'login_user': 'यूजर लॉगिन',
@@ -79,17 +82,20 @@ String translate(String key) {
       'recovery_msg': 'रिकवरी ओटीपी प्राप्त करने के लिए अपनी पंजीकृत आईडी दर्ज करें।', 'id_hint': 'मोबाइल या ईमेल आईडी',
       'field_req': 'क्षेत्र आवश्यक है', 'pass_rec': 'सिफारिश: कम से कम 8 वर्णों का उपयोग करें',
       'invalid_email': 'एक वैध ईमेल पता दर्ज करें (@ और .)', 'dash_scan': 'पशु स्कैन/अपलोड करें',
-      'dash_saved': 'सहेजे गए पशु', 'dash_library': 'नस्ल पुस्तकालय', 'dash_aadhar': 'पशु आधार',
+      'dash_saved': 'सहेजे गए पशु', 'dash_library': 'प्रजाति पुस्तकालय', 'dash_aadhar': 'पशु आधार',
       'welcome_admin': 'स्वागत है, एडमिन!', 'welcome_user': 'स्वागत है!', 'no_cattles': 'अभी तक कोई पशु नहीं बचाया गया है।',
-      'cattle_record': 'पशु रिकॉर्ड #', 'lib_title': 'शीर्ष स्वदेशी नस्लें', 'lib_origin': 'मूल स्थान',
+      'cattle_record': 'पशु रिकॉर्ड #', 'lib_title': 'शीर्ष स्वदेशी प्रजातियां', 'lib_origin': 'मूल स्थान',
       'lib_milk': 'दूध उत्पादन', 'lib_weight': 'वजन', 'lib_height': 'ऊँचाई', 'lib_lifespan': 'जीवनकाल',
       'lib_appearance': 'दिखावट', 'filter_all': 'सभी', 'filter_cow': 'गाय', 'filter_buffalo': 'भैंस',
-      'filter_camel': 'ऊंट', 'coming_soon': 'जल्द आ रहा है! ऊंट की नस्लों को अगले अपडेट में जोड़ा जाएगा।',
+      'filter_camel': 'ऊंट', 'coming_soon': 'जल्द आ रहा है! ऊंट की प्रजातियों को अगले अपडेट में जोड़ा जाएगा।',
       'voice_btn': 'आवाज़ गाइड',
-      'voice_script': 'देसी मू डैशबोर्ड में आपका स्वागत है। पशु को स्कैन करने के लिए पहला बटन दबाएं। सहेजे गए पशु देखने के लिए दूसरा बटन दबाएं। नस्ल पुस्तकालय खोलने के लिए तीसरा बटन दबाएं।',
+      'voice_script': 'देसी मू डैशबोर्ड में आपका स्वागत है। पशु को स्कैन करने के लिए पहला बटन दबाएं। सहेजे गए पशु देखने के लिए दूसरा बटन दबाएं। प्रजाति पुस्तकालय खोलने के लिए तीसरा बटन दबाएं। पशु खरीदने और बेचने के लिए चौथा बटन दबाएं।',
       'listen_btn': 'विवरण सुनें',
-      // <-- NEW DIALOG KEYS -->
-      'dialog_info': 'नस्ल की जानकारी', 'dialog_breed': 'नस्ल', 'dialog_type': 'प्रकार', 'dialog_back': 'वापस जाएं'
+      'dialog_info': 'प्रजाति की जानकारी', 'dialog_breed': 'प्रजाति', 'dialog_type': 'प्रकार', 'dialog_back': 'वापस जाएं',
+      'dash_market': 'पशु मंडी (खरीदें/बेचें)', 'market_title': 'पशु मंडी', 'buy_tab': 'खरीदें',
+      'sell_tab': 'बेचें', 'price': 'कीमत: ₹', 'contact_seller': 'विक्रेता से संपर्क करें', 'list_cattle_btn': 'बिक्री के लिए पशु जोड़ें',
+      'form_breed': 'प्रजाति का नाम', 'form_age': 'उम्र (वर्ष)', 'form_milk': 'दूध क्षमता (लीटर)', 'form_price': 'अपेक्षित कीमत (₹)',
+      'dialog_diet': 'अनुशंसित आहार' // <-- NEW DIET KEY
     },
     'mr': {
       'select_lang': 'भाषा निवडा', 'welcome': 'स्वागत आहे!', 'login_user': 'वापरकर्ता लॉगिन',
@@ -101,17 +107,20 @@ String translate(String key) {
       'recovery_msg': 'रिकव्हरी ओटीपी मिळवण्यासाठी तुमचा नोंदणीकृत आयडी टाका.', 'id_hint': 'मोबाईल किंवा ईमेल आयडी',
       'field_req': 'क्षेत्र आवश्यक आहे', 'pass_rec': 'शिफारस: किमान 8 अक्षरे वापरा',
       'invalid_email': 'वैध ईमेल पत्ता प्रविष्ट करा (@ आणि .)', 'dash_scan': 'पशु स्कॅन/अपलोड करा',
-      'dash_saved': 'जतन केलेले पशु', 'dash_library': 'नस्ल लायब्ररी', 'dash_aadhar': 'पशु आधार',
+      'dash_saved': 'जतन केलेले पशु', 'dash_library': 'प्रजाती लायब्ररी', 'dash_aadhar': 'पशु आधार',
       'welcome_admin': 'स्वागत आहे, अ‍ॅडमिन!', 'welcome_user': 'स्वागत आहे!', 'no_cattles': 'अद्याप कोणतेही पशु जतन केलेले नाहीत.',
-      'cattle_record': 'पशु रेकॉर्ड #', 'lib_title': 'शीर्ष देशी जाती', 'lib_origin': 'मूळ स्थान',
+      'cattle_record': 'पशु रेकॉर्ड #', 'lib_title': 'शीर्ष देशी प्रजाती', 'lib_origin': 'मूळ स्थान',
       'lib_milk': 'दूध उत्पादन', 'lib_weight': 'वजन', 'lib_height': 'उंची', 'lib_lifespan': 'आयुर्मान',
       'lib_appearance': 'स्वरूप', 'filter_all': 'सर्व', 'filter_cow': 'गाय', 'filter_buffalo': 'म्हैस',
-      'filter_camel': 'उंट', 'coming_soon': 'लवकरच येत आहे! पुढील अपडेटमध्ये उंटांच्या जाती जोडल्या जातील.',
+      'filter_camel': 'उंट', 'coming_soon': 'लवकरच येत आहे! पुढील अपडेटमध्ये उंटांच्या प्रजाती जोडल्या जातील.',
       'voice_btn': 'आवाज मार्गदर्शक',
-      'voice_script': 'देसी मू डॅशबोर्डवर आपले स्वागत आहे. पशु स्कॅन करण्यासाठी पहिले बटण दाबा. जतन केलेले पशु पाहण्यासाठी दुसरे बटण दाबा. नस्ल लायब्ररी उघडण्यासाठी तिसरे बटण दाबा.',
+      'voice_script': 'देसी मू डॅशबोर्डवर आपले स्वागत आहे. पशु स्कॅन करण्यासाठी पहिले बटण दाबा. जतन केलेले पशु पाहण्यासाठी दुसरे बटण दाबा. प्रजाती लायब्ररी उघडण्यासाठी तिसरे बटण दाबा. पशु खरेदी आणि विक्रीसाठी चौथे बटण दाबा.',
       'listen_btn': 'माहिती ऐका',
-      // <-- NEW DIALOG KEYS -->
-      'dialog_info': 'जातीची माहिती', 'dialog_breed': 'जात', 'dialog_type': 'प्रकार', 'dialog_back': 'मागे जा'
+      'dialog_info': 'प्रजातीची माहिती', 'dialog_breed': 'प्रजाती', 'dialog_type': 'प्रकार', 'dialog_back': 'मागे जा',
+      'dash_market': 'पशु बाजार (खरेदी/विक्री)', 'market_title': 'पशु बाजार', 'buy_tab': 'खरेदी करा',
+      'sell_tab': 'विक्री करा', 'price': 'किंमत: ₹', 'contact_seller': 'विक्रेत्याशी संपर्क साधा', 'list_cattle_btn': 'विक्रीसाठी पशु जोडा',
+      'form_breed': 'प्रजातीचे नाव', 'form_age': 'वय (वर्षे)', 'form_milk': 'दूध क्षमता (लिटर)', 'form_price': 'अपेक्षित किंमत (₹)',
+      'dialog_diet': 'सुचवलेला आहार' // <-- NEW DIET KEY
     },
   };
   return dictionary[appLanguage.value]?[key] ?? key;
@@ -542,21 +551,32 @@ class _DashboardScreenState extends State<DashboardScreen> {
     await flutterTts.speak(translate('voice_script'));
   }
 
+  // <-- UPDATED VOICE SCRIPT WITH DIET -->
   Future<void> _speakCattleDetails(String breedName, Map<String, String> details) async {
     String lang = appLanguage.value;
     String textToSpeak = "";
 
     String safeName = details['name'] ?? breedName;
+    String safeLifespan = details['lifespan'] ?? "";
+    String safeMilk = details['milk'] ?? "";
+    String safeOrigin = details['origin'] ?? "";
+    String safeDiet = details['diet'] ?? "";
 
     if (lang == 'hi') {
       await flutterTts.setLanguage("hi-IN");
-      textToSpeak = "यह $safeName नस्ल है। इसका मूल स्थान ${details['origin']} है। इसका जीवनकाल ${details['lifespan']} है, और यह प्रतिदिन ${details['milk']} देती है।";
+      safeLifespan = safeLifespan.replaceAll('-', ' से ');
+      safeMilk = safeMilk.replaceAll('-', ' से ');
+      textToSpeak = "यह $safeName प्रजाति है। इसका मूल स्थान $safeOrigin है। इसका जीवनकाल $safeLifespan है, और यह प्रतिदिन $safeMilk देती है। इसका अनुशंसित आहार है: $safeDiet";
     } else if (lang == 'mr') {
       await flutterTts.setLanguage("mr-IN");
-      textToSpeak = "ही $safeName जात आहे. याचे मूळ स्थान ${details['origin']} आहे. याचे आयुर्मान ${details['lifespan']} आहे, आणि हे दररोज ${details['milk']} देते.";
+      safeLifespan = safeLifespan.replaceAll('-', ' ते ');
+      safeMilk = safeMilk.replaceAll('-', ' ते ');
+      textToSpeak = "ही $safeName प्रजाती आहे. याचे मूळ स्थान $safeOrigin आहे. याचे आयुर्मान $safeLifespan आहे, आणि हे दररोज $safeMilk देते. याचा सुचवलेला आहार आहे: $safeDiet";
     } else {
       await flutterTts.setLanguage("en-IN");
-      textToSpeak = "This is the $safeName breed. It originates from ${details['origin']}. It has a lifespan of ${details['lifespan']}, and produces ${details['milk']}.";
+      safeLifespan = safeLifespan.replaceAll('-', ' to ');
+      safeMilk = safeMilk.replaceAll('-', ' to ');
+      textToSpeak = "This is the $safeName breed. It originates from $safeOrigin. It has a lifespan of $safeLifespan, and produces $safeMilk. Its recommended diet is: $safeDiet";
     }
 
     await flutterTts.speak(textToSpeak);
@@ -577,7 +597,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
     }
   }
 
-  // --- FULLY LOCALIZED BREED DATABASE FOR SCANNER POPUP ---
+  // --- UPDATED: DATABASE WITH DIET PLANS ---
   Map<String, String> getBreedInfo(String breedName) {
     String searchKey = breedName.toLowerCase().trim();
     String lang = appLanguage.value;
@@ -586,60 +606,60 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
     if (lang == 'hi') {
       breedData = {
-        'gir': {'name': 'गिर', 'type': 'गाय', 'origin': 'गुजरात (सौराष्ट्र)', 'lifespan': '12-15 वर्ष', 'milk': '12-20 लीटर/दिन', 'weight': '385-545 किग्रा', 'height': '130-140 सेमी', 'appearance': 'उत्तल माथा, लंबे लटकते कान, लाल/धब्बेदार।'},
-        'sahiwal': {'name': 'साहीवाल', 'type': 'गाय', 'origin': 'पंजाब/हरियाणा', 'lifespan': '14-16 वर्ष', 'milk': '10-15 लीटर/दिन', 'weight': '400-500 किग्रा', 'height': '120-130 सेमी', 'appearance': 'लाल-भूरा रंग, भारी त्वचा की सिलवटें।'},
-        'kankrej': {'name': 'कांक्रेज', 'type': 'गाय', 'origin': 'गुजरात/राजस्थान', 'lifespan': '12-16 वर्ष', 'milk': '8-10 लीटर/दिन', 'weight': '420-590 किग्रा', 'height': '130-140 सेमी', 'appearance': 'चांदी-भूरा रंग, बड़े मजबूत सींग।'},
-        'ongole': {'name': 'ओंगोल', 'type': 'गाय', 'origin': 'आंध्र प्रदेश', 'lifespan': '15-20 वर्ष', 'milk': '5-8 लीटर/दिन', 'weight': '430-500 किग्रा', 'height': '135-150 सेमी', 'appearance': 'सफेद रंग, बड़ा कूबड़, मांसल शरीर।'},
-        'red sindhi': {'name': 'लाल सिंधी', 'type': 'गाय', 'origin': 'सिंध/राजस्थान', 'lifespan': '12-15 वर्ष', 'milk': '12-18 लीटर/दिन', 'weight': '300-450 किग्रा', 'height': '115-130 सेमी', 'appearance': 'गहरा लाल रंग, गठीला शरीर, मोटे सींग।'},
-        'tharparkar': {'name': 'थारपारकर', 'type': 'गाय', 'origin': 'राजस्थान', 'lifespan': '14-18 वर्ष', 'milk': '10-14 लीटर/दिन', 'weight': '400-500 किग्रा', 'height': '120-140 सेमी', 'appearance': 'सफेद/हल्का भूरा रंग।'},
-        'rathi': {'name': 'राठी', 'type': 'गाय', 'origin': 'राजस्थान', 'lifespan': '13-15 वर्ष', 'milk': '8-12 लीटर/दिन', 'weight': '280-350 किग्रा', 'height': '115-125 सेमी', 'appearance': 'सफेद धब्बों के साथ भूरा रंग।'},
-        'hariana': {'name': 'हरियाणवी', 'type': 'गाय', 'origin': 'हरियाणा', 'lifespan': '14-18 वर्ष', 'milk': '8-12 लीटर/दिन', 'weight': '350-500 किग्रा', 'height': '130-140 सेमी', 'appearance': 'सफेद या हल्का भूरा, लंबा चेहरा।'},
-        'deoni': {'name': 'देओनी', 'type': 'गाय', 'origin': 'महाराष्ट्र/कर्नाटक', 'lifespan': '12-15 वर्ष', 'milk': '6-10 लीटर/दिन', 'weight': '400-500 किग्रा', 'height': '120-135 सेमी', 'appearance': 'काले और सफेद धब्बे, लटकते कान।'},
-        'malnad gidda': {'name': 'मलनाड गिड्डा', 'type': 'गाय (बौनी)', 'origin': 'कर्नाटक', 'lifespan': '10-14 वर्ष', 'milk': '2-4 लीटर/दिन', 'weight': '120-200 किग्रा', 'height': '90-100 सेमी', 'appearance': 'छोटा कद, रोग प्रतिरोधी, फुर्तीली।'},
-        'banni': {'name': 'बन्नी', 'type': 'भैंस', 'origin': 'गुजरात (कच्छ)', 'lifespan': '15-20 वर्ष', 'milk': '12-15 लीटर/दिन', 'weight': '450-550 किग्रा', 'height': '130-140 सेमी', 'appearance': 'रात में चरने वाली, घुमावदार सींग।'},
-        'jaffarabadi': {'name': 'जाफराबादी', 'type': 'भैंस', 'origin': 'गुजरात', 'lifespan': '18-22 वर्ष', 'milk': '15-20 लीटर/दिन', 'weight': '700-800 किग्रा', 'height': '140-150 सेमी', 'appearance': 'भारी शरीर, लटकते सींग।'},
-        'nili ravi': {'name': 'नीली रावी', 'type': 'भैंस', 'origin': 'पंजाब', 'lifespan': '14-18 वर्ष', 'milk': '12-18 लीटर/दिन', 'weight': '500-600 किग्रा', 'height': '130-140 सेमी', 'appearance': 'सफेद आंखें, चेहरे और पैरों पर सफेद निशान।'},
-        'mehsana': {'name': 'मेहसाणा', 'type': 'भैंस', 'origin': 'गुजरात', 'lifespan': '15-20 वर्ष', 'milk': '10-15 लीटर/दिन', 'weight': '450-550 किग्रा', 'height': '130-140 सेमी', 'appearance': 'मुर्रा और सुरती का संकर, दरांती जैसे सींग।'},
-        'nagpuri': {'name': 'नागपुरी', 'type': 'भैंस', 'origin': 'महाराष्ट्र', 'lifespan': '15-18 वर्ष', 'milk': '5-8 लीटर/दिन', 'weight': '350-450 किग्रा', 'height': '120-130 सेमी', 'appearance': 'लंबे और चपटे तलवार जैसे सींग।'},
-        'toda': {'name': 'टोडा', 'type': 'भैंस', 'origin': 'तमिलनाडु', 'lifespan': '15-18 वर्ष', 'milk': '4-6 लीटर/दिन', 'weight': '350-400 किग्रा', 'height': '120-130 सेमी', 'appearance': 'भूरा रंग, विशिष्ट अर्धचंद्राकार सींग।'}
+        'gir': {'name': 'गिर', 'type': 'गाय', 'origin': 'गुजरात (सौराष्ट्र)', 'lifespan': '12-15 वर्ष', 'milk': '12-20 लीटर/दिन', 'weight': '385-545 किग्रा', 'height': '130-140 सेमी', 'appearance': 'उत्तल माथा, लंबे लटकते कान, लाल/धब्बेदार।', 'diet': 'हरा चारा (15-20 किलो), सूखा चारा (5-7 किलो), दाना (3-4 किलो), खनिज (50 ग्राम)।'},
+        'sahiwal': {'name': 'साहीवाल', 'type': 'गाय', 'origin': 'पंजाब/हरियाणा', 'lifespan': '14-16 वर्ष', 'milk': '10-15 लीटर/दिन', 'weight': '400-500 किग्रा', 'height': '120-130 सेमी', 'appearance': 'लाल-भूरा रंग, भारी त्वचा की सिलवटें।', 'diet': 'हरा चारा (15-20 किलो), सूखा चारा (5-7 किलो), दाना (3-4 किलो), खनिज (50 ग्राम)।'},
+        'kankrej': {'name': 'कांक्रेज', 'type': 'गाय', 'origin': 'गुजरात/राजस्थान', 'lifespan': '12-16 वर्ष', 'milk': '8-10 लीटर/दिन', 'weight': '420-590 किग्रा', 'height': '130-140 सेमी', 'appearance': 'चांदी-भूरा रंग, बड़े मजबूत सींग।', 'diet': 'सूखा चारा (6-8 किलो), चराई, दाना मिश्रण (2 किलो) और नमक।'},
+        'ongole': {'name': 'ओंगोल', 'type': 'गाय', 'origin': 'आंध्र प्रदेश', 'lifespan': '15-20 वर्ष', 'milk': '5-8 लीटर/दिन', 'weight': '430-500 किग्रा', 'height': '135-150 सेमी', 'appearance': 'सफेद रंग, बड़ा कूबड़, मांसल शरीर।', 'diet': 'सूखा चारा (6-8 किलो), चराई, दाना मिश्रण (2 किलो) और नमक।'},
+        'red sindhi': {'name': 'लाल सिंधी', 'type': 'गाय', 'origin': 'सिंध/राजस्थान', 'lifespan': '12-15 वर्ष', 'milk': '12-18 लीटर/दिन', 'weight': '300-450 किग्रा', 'height': '115-130 सेमी', 'appearance': 'गहरा लाल रंग, गठीला शरीर, मोटे सींग।', 'diet': 'हरा चारा (15-20 किलो), सूखा चारा (5-7 किलो), दाना (3-4 किलो), खनिज (50 ग्राम)।'},
+        'tharparkar': {'name': 'थारपारकर', 'type': 'गाय', 'origin': 'राजस्थान', 'lifespan': '14-18 वर्ष', 'milk': '10-14 लीटर/दिन', 'weight': '400-500 किग्रा', 'height': '120-140 सेमी', 'appearance': 'सफेद/हल्का भूरा रंग।', 'diet': 'हरा चारा (15-20 किलो), सूखा चारा (5-7 किलो), दाना (3-4 किलो), खनिज (50 ग्राम)।'},
+        'rathi': {'name': 'राठी', 'type': 'गाय', 'origin': 'राजस्थान', 'lifespan': '13-15 वर्ष', 'milk': '8-12 लीटर/दिन', 'weight': '280-350 किग्रा', 'height': '115-125 सेमी', 'appearance': 'सफेद धब्बों के साथ भूरा रंग।', 'diet': 'हरा चारा (15-20 किलो), सूखा चारा (5-7 किलो), दाना (3-4 किलो), खनिज (50 ग्राम)।'},
+        'hariana': {'name': 'हरियाणवी', 'type': 'गाय', 'origin': 'हरियाणा', 'lifespan': '14-18 वर्ष', 'milk': '8-12 लीटर/दिन', 'weight': '350-500 किग्रा', 'height': '130-140 सेमी', 'appearance': 'सफेद या हल्का भूरा, लंबा चेहरा।', 'diet': 'सूखा चारा (6-8 किलो), चराई, दाना मिश्रण (2 किलो) और नमक।'},
+        'deoni': {'name': 'देओनी', 'type': 'गाय', 'origin': 'महाराष्ट्र/कर्नाटक', 'lifespan': '12-15 वर्ष', 'milk': '6-10 लीटर/दिन', 'weight': '400-500 किग्रा', 'height': '120-135 सेमी', 'appearance': 'काले और सफेद धब्बे, लटकते कान।', 'diet': 'हरा चारा (15-20 किलो), सूखा चारा (5-7 किलो), दाना (3-4 किलो), खनिज (50 ग्राम)।'},
+        'malnad gidda': {'name': 'मलनाड गिड्डा', 'type': 'गाय (बौनी)', 'origin': 'कर्नाटक', 'lifespan': '10-14 वर्ष', 'milk': '2-4 लीटर/दिन', 'weight': '120-200 किग्रा', 'height': '90-100 सेमी', 'appearance': 'छोटा कद, रोग प्रतिरोधी, फुर्तीली।', 'diet': 'चराई, सूखा चारा (2-3 किलो), और कम दाना।'},
+        'banni': {'name': 'बन्नी', 'type': 'भैंस', 'origin': 'गुजरात (कच्छ)', 'lifespan': '15-20 वर्ष', 'milk': '12-15 लीटर/दिन', 'weight': '450-550 किग्रा', 'height': '130-140 सेमी', 'appearance': 'रात में चरने वाली, घुमावदार सींग।', 'diet': 'हरा चारा (20-25 किलो), सूखा चारा (8-10 किलो), उच्च प्रोटीन दाना (4-5 किलो), कैल्शियम।'},
+        'jaffarabadi': {'name': 'जाफराबादी', 'type': 'भैंस', 'origin': 'गुजरात', 'lifespan': '18-22 वर्ष', 'milk': '15-20 लीटर/दिन', 'weight': '700-800 किग्रा', 'height': '140-150 सेमी', 'appearance': 'भारी शरीर, लटकते सींग।', 'diet': 'हरा चारा (20-25 किलो), सूखा चारा (8-10 किलो), उच्च प्रोटीन दाना (4-5 किलो), कैल्शियम।'},
+        'nili ravi': {'name': 'नीली रावी', 'type': 'भैंस', 'origin': 'पंजाब', 'lifespan': '14-18 वर्ष', 'milk': '12-18 लीटर/दिन', 'weight': '500-600 किग्रा', 'height': '130-140 सेमी', 'appearance': 'सफेद आंखें, चेहरे और पैरों पर सफेद निशान।', 'diet': 'हरा चारा (20-25 किलो), सूखा चारा (8-10 किलो), उच्च प्रोटीन दाना (4-5 किलो), कैल्शियम।'},
+        'mehsana': {'name': 'मेहसाणा', 'type': 'भैंस', 'origin': 'गुजरात', 'lifespan': '15-20 वर्ष', 'milk': '10-15 लीटर/दिन', 'weight': '450-550 किग्रा', 'height': '130-140 सेमी', 'appearance': 'मुर्रा और सुरती का संकर, दरांती जैसे सींग।', 'diet': 'हरा चारा (20-25 किलो), सूखा चारा (8-10 किलो), उच्च प्रोटीन दाना (4-5 किलो), कैल्शियम।'},
+        'nagpuri': {'name': 'नागपुरी', 'type': 'भैंस', 'origin': 'महाराष्ट्र', 'lifespan': '15-18 वर्ष', 'milk': '5-8 लीटर/दिन', 'weight': '350-450 किग्रा', 'height': '120-130 सेमी', 'appearance': 'लंबे और चपटे तलवार जैसे सींग।', 'diet': 'हरा चारा (20-25 किलो), सूखा चारा (8-10 किलो), उच्च प्रोटीन दाना (4-5 किलो), कैल्शियम।'},
+        'toda': {'name': 'टोडा', 'type': 'भैंस', 'origin': 'तमिलनाडु', 'lifespan': '15-18 वर्ष', 'milk': '4-6 लीटर/दिन', 'weight': '350-400 किग्रा', 'height': '120-130 सेमी', 'appearance': 'भूरा रंग, विशिष्ट अर्धचंद्राकार सींग।', 'diet': 'हरा चारा (20-25 किलो), सूखा चारा (8-10 किलो), उच्च प्रोटीन दाना (4-5 किलो), कैल्शियम।'}
       };
     } else if (lang == 'mr') {
       breedData = {
-        'gir': {'name': 'गीर', 'type': 'गाय', 'origin': 'गुजरात (सौराष्ट्र)', 'lifespan': '12-15 वर्षे', 'milk': '12-20 लिटर/दिवस', 'weight': '385-545 किलो', 'height': '130-140 सेमी', 'appearance': 'बहिर्वक्र कपाळ, लांब लोंबकळणारे कान, लाल/ठिपकेदार.'},
-        'sahiwal': {'name': 'साहीवाल', 'type': 'गाय', 'origin': 'पंजाब/हरियाणा', 'lifespan': '14-16 वर्षे', 'milk': '10-15 लिटर/दिवस', 'weight': '400-500 किलो', 'height': '120-130 सेमी', 'appearance': 'लाल-तपकिरी रंग, त्वचेच्या घड्या.'},
-        'kankrej': {'name': 'कांकरेज', 'type': 'गाय', 'origin': 'गुजरात/राजस्थान', 'lifespan': '12-16 वर्षे', 'milk': '8-10 लिटर/दिवस', 'weight': '420-590 किलो', 'height': '130-140 सेमी', 'appearance': 'चांदी-तपकिरी रंग, मोठी मजबूत शिंगे.'},
-        'ongole': {'name': 'ओंगोल', 'type': 'गाय', 'origin': 'आंध्र प्रदेश', 'lifespan': '15-20 वर्षे', 'milk': '5-8 लिटर/दिवस', 'weight': '430-500 किलो', 'height': '135-150 सेमी', 'appearance': 'पांढरा रंग, मोठे वशिंड, मजबूत शरीर.'},
-        'red sindhi': {'name': 'लाल सिंधी', 'type': 'गाय', 'origin': 'सिंध/राजस्थान', 'lifespan': '12-15 वर्षे', 'milk': '12-18 लिटर/दिवस', 'weight': '300-450 किलो', 'height': '115-130 सेमी', 'appearance': 'गडद लाल रंग, कॉम्पॅक्ट फ्रेम.'},
-        'tharparkar': {'name': 'थारपारकर', 'type': 'गाय', 'origin': 'राजस्थान', 'lifespan': '14-18 वर्षे', 'milk': '10-14 लिटर/दिवस', 'weight': '400-500 किलो', 'height': '120-140 सेमी', 'appearance': 'पांढरा/फिकट राखाडी रंग.'},
-        'rathi': {'name': 'राठी', 'type': 'गाय', 'origin': 'राजस्थान', 'lifespan': '13-15 वर्षे', 'milk': '8-12 लिटर/दिवस', 'weight': '280-350 किलो', 'height': '115-125 सेमी', 'appearance': 'पांढऱ्या ठिपक्यांसह तपकिरी रंग.'},
-        'hariana': {'name': 'हरियाणवी', 'type': 'गाय', 'origin': 'हरियाणा', 'lifespan': '14-18 वर्षे', 'milk': '8-12 लिटर/दिवस', 'weight': '350-500 किलो', 'height': '130-140 सेमी', 'appearance': 'पांढरा किंवा फिकट राखाडी, लांब चेहरा.'},
-        'deoni': {'name': 'देवणी', 'type': 'गाय', 'origin': 'महाराष्ट्र/कर्नाटक', 'lifespan': '12-15 वर्षे', 'milk': '6-10 लिटर/दिवस', 'weight': '400-500 किलो', 'height': '120-135 सेमी', 'appearance': 'काळे आणि पांढरे ठिपके, लोंबकळणारे कान.'},
-        'malnad gidda': {'name': 'मलनाड गिड्डा', 'type': 'गाय (बुटकी)', 'origin': 'कर्नाटक', 'lifespan': '10-14 वर्षे', 'milk': '2-4 लिटर/दिवस', 'weight': '120-200 किलो', 'height': '90-100 सेमी', 'appearance': 'लहान उंची, रोगप्रतिकारक, चपळ.'},
-        'banni': {'name': 'बन्नी', 'type': 'म्हैस', 'origin': 'गुजरात (कच्छ)', 'lifespan': '15-20 वर्षे', 'milk': '12-15 लिटर/दिवस', 'weight': '450-550 किलो', 'height': '130-140 सेमी', 'appearance': 'रात्री चरणाऱ्या, वळलेली शिंगे.'},
-        'jaffarabadi': {'name': 'जाफराबादी', 'type': 'म्हैस', 'origin': 'गुजरात', 'lifespan': '18-22 वर्षे', 'milk': '15-20 लिटर/दिवस', 'weight': '700-800 किलो', 'height': '140-150 सेमी', 'appearance': 'जड शरीर, लोंबकळणारी शिंगे.'},
-        'nili ravi': {'name': 'नीली रावी', 'type': 'म्हैस', 'origin': 'पंजाब', 'lifespan': '14-18 वर्षे', 'milk': '12-18 लिटर/दिवस', 'weight': '500-600 किलो', 'height': '130-140 सेमी', 'appearance': 'पांढरे डोळे, चेहरा आणि पायांवर पांढरे डाग.'},
-        'mehsana': {'name': 'मेहसाणा', 'type': 'म्हैस', 'origin': 'गुजरात', 'lifespan': '15-20 वर्षे', 'milk': '10-15 लिटर/दिवस', 'weight': '450-550 किलो', 'height': '130-140 सेमी', 'appearance': 'विळ्याच्या आकाराची शिंगे.'},
-        'nagpuri': {'name': 'नागपुरी', 'type': 'म्हैस', 'origin': 'महाराष्ट्र', 'lifespan': '15-18 वर्षे', 'milk': '5-8 लिटर/दिवस', 'weight': '350-450 किलो', 'height': '120-130 सेमी', 'appearance': 'लांब आणि सपाट तलवारीसारखी शिंगे.'},
-        'toda': {'name': 'टोडा', 'type': 'म्हैस', 'origin': 'तमिळनाडू', 'lifespan': '15-18 वर्षे', 'milk': '4-6 लिटर/दिवस', 'weight': '350-400 किलो', 'height': '120-130 सेमी', 'appearance': 'राखाडी रंग, अर्धचंद्राकृती शिंगे.'}
+        'gir': {'name': 'गीर', 'type': 'गाय', 'origin': 'गुजरात (सौराष्ट्र)', 'lifespan': '12-15 वर्षे', 'milk': '12-20 लिटर/दिवस', 'weight': '385-545 किलो', 'height': '130-140 सेमी', 'appearance': 'बहिर्वक्र कपाळ, लांब लोंबकळणारे कान, लाल/ठिपकेदार.', 'diet': 'हिरवा चारा (15-20 किलो), सुका चारा (5-7 किलो), पशुखाद्य (3-4 किलो), खनिज (50 ग्रॅम).'},
+        'sahiwal': {'name': 'साहीवाल', 'type': 'गाय', 'origin': 'पंजाब/हरियाणा', 'lifespan': '14-16 वर्षे', 'milk': '10-15 लिटर/दिवस', 'weight': '400-500 किलो', 'height': '120-130 सेमी', 'appearance': 'लाल-तपकिरी रंग, त्वचेच्या घड्या.', 'diet': 'हिरवा चारा (15-20 किलो), सुका चारा (5-7 किलो), पशुखाद्य (3-4 किलो), खनिज (50 ग्रॅम).'},
+        'kankrej': {'name': 'कांकरेज', 'type': 'गाय', 'origin': 'गुजरात/राजस्थान', 'lifespan': '12-16 वर्षे', 'milk': '8-10 लिटर/दिवस', 'weight': '420-590 किलो', 'height': '130-140 सेमी', 'appearance': 'चांदी-तपकिरी रंग, मोठी मजबूत शिंगे.', 'diet': 'सुका चारा (6-8 किलो), चराई, पशुखाद्य (2 किलो) आणि मीठ.'},
+        'ongole': {'name': 'ओंगोल', 'type': 'गाय', 'origin': 'आंध्र प्रदेश', 'lifespan': '15-20 वर्षे', 'milk': '5-8 लिटर/दिवस', 'weight': '430-500 किलो', 'height': '135-150 सेमी', 'appearance': 'पांढरा रंग, मोठे वशिंड, मजबूत शरीर.', 'diet': 'सुका चारा (6-8 किलो), चराई, पशुखाद्य (2 किलो) आणि मीठ.'},
+        'red sindhi': {'name': 'लाल सिंधी', 'type': 'गाय', 'origin': 'सिंध/राजस्थान', 'lifespan': '12-15 वर्षे', 'milk': '12-18 लिटर/दिवस', 'weight': '300-450 किलो', 'height': '115-130 सेमी', 'appearance': 'गडद लाल रंग, कॉम्पॅक्ट फ्रेम.', 'diet': 'हिरवा चारा (15-20 किलो), सुका चारा (5-7 किलो), पशुखाद्य (3-4 किलो), खनिज (50 ग्रॅम).'},
+        'tharparkar': {'name': 'थारपारकर', 'type': 'गाय', 'origin': 'राजस्थान', 'lifespan': '14-18 वर्षे', 'milk': '10-14 लिटर/दिवस', 'weight': '400-500 किलो', 'height': '120-140 सेमी', 'appearance': 'पांढरा/फिकट राखाडी रंग.', 'diet': 'हिरवा चारा (15-20 किलो), सुका चारा (5-7 किलो), पशुखाद्य (3-4 किलो), खनिज (50 ग्रॅम).'},
+        'rathi': {'name': 'राठी', 'type': 'गाय', 'origin': 'राजस्थान', 'lifespan': '13-15 वर्षे', 'milk': '8-12 लिटर/दिवस', 'weight': '280-350 किलो', 'height': '115-125 सेमी', 'appearance': 'पांढऱ्या ठिपक्यांसह तपकिरी रंग.', 'diet': 'हिरवा चारा (15-20 किलो), सुका चारा (5-7 किलो), पशुखाद्य (3-4 किलो), खनिज (50 ग्रॅम).'},
+        'hariana': {'name': 'हरियाणवी', 'type': 'गाय', 'origin': 'हरियाणा', 'lifespan': '14-18 वर्षे', 'milk': '8-12 लिटर/दिवस', 'weight': '350-500 किलो', 'height': '130-140 सेमी', 'appearance': 'पांढरा किंवा फिकट राखाडी, लांब चेहरा.', 'diet': 'सुका चारा (6-8 किलो), चराई, पशुखाद्य (2 किलो) आणि मीठ.'},
+        'deoni': {'name': 'देवणी', 'type': 'गाय', 'origin': 'महाराष्ट्र/कर्नाटक', 'lifespan': '12-15 वर्षे', 'milk': '6-10 लिटर/दिवस', 'weight': '400-500 किलो', 'height': '120-135 सेमी', 'appearance': 'काळे आणि पांढरे ठिपके, लोंबकळणारे कान.', 'diet': 'हिरवा चारा (15-20 किलो), सुका चारा (5-7 किलो), पशुखाद्य (3-4 किलो), खनिज (50 ग्रॅम).'},
+        'malnad gidda': {'name': 'मलनाड गिड्डा', 'type': 'गाय (बुटकी)', 'origin': 'कर्नाटक', 'lifespan': '10-14 वर्षे', 'milk': '2-4 लिटर/दिवस', 'weight': '120-200 किलो', 'height': '90-100 सेमी', 'appearance': 'लहान उंची, रोगप्रतिकारक, चपळ.', 'diet': 'चराई, सुका चारा (2-3 किलो), आणि थोडे पशुखाद्य.'},
+        'banni': {'name': 'बन्नी', 'type': 'म्हैस', 'origin': 'गुजरात (कच्छ)', 'lifespan': '15-20 वर्षे', 'milk': '12-15 लिटर/दिवस', 'weight': '450-550 किलो', 'height': '130-140 सेमी', 'appearance': 'रात्री चरणाऱ्या, वळलेली शिंगे.', 'diet': 'हिरवा चारा (20-25 किलो), सुका चारा (8-10 किलो), उच्च प्रथिनेयुक्त पशुखाद्य (4-5 किलो).'},
+        'jaffarabadi': {'name': 'जाफराबादी', 'type': 'म्हैस', 'origin': 'गुजरात', 'lifespan': '18-22 वर्षे', 'milk': '15-20 लिटर/दिवस', 'weight': '700-800 किलो', 'height': '140-150 सेमी', 'appearance': 'जड शरीर, लोंबकळणारी शिंगे.', 'diet': 'हिरवा चारा (20-25 किलो), सुका चारा (8-10 किलो), उच्च प्रथिनेयुक्त पशुखाद्य (4-5 किलो).'},
+        'nili ravi': {'name': 'नीली रावी', 'type': 'म्हैस', 'origin': 'पंजाब', 'lifespan': '14-18 वर्षे', 'milk': '12-18 लिटर/दिवस', 'weight': '500-600 किलो', 'height': '130-140 सेमी', 'appearance': 'पांढरे डोळे, चेहरा आणि पायांवर पांढरे डाग.', 'diet': 'हिरवा चारा (20-25 किलो), सुका चारा (8-10 किलो), उच्च प्रथिनेयुक्त पशुखाद्य (4-5 किलो).'},
+        'mehsana': {'name': 'मेहसाणा', 'type': 'म्हैस', 'origin': 'गुजरात', 'lifespan': '15-20 वर्षे', 'milk': '10-15 लिटर/दिवस', 'weight': '450-550 किलो', 'height': '130-140 सेमी', 'appearance': 'विळ्याच्या आकाराची शिंगे.', 'diet': 'हिरवा चारा (20-25 किलो), सुका चारा (8-10 किलो), उच्च प्रथिनेयुक्त पशुखाद्य (4-5 किलो).'},
+        'nagpuri': {'name': 'नागपुरी', 'type': 'म्हैस', 'origin': 'महाराष्ट्र', 'lifespan': '15-18 वर्षे', 'milk': '5-8 लिटर/दिवस', 'weight': '350-450 किलो', 'height': '120-130 सेमी', 'appearance': 'लांब आणि सपाट तलवारीसारखी शिंगे.', 'diet': 'हिरवा चारा (20-25 किलो), सुका चारा (8-10 किलो), उच्च प्रथिनेयुक्त पशुखाद्य (4-5 किलो).'},
+        'toda': {'name': 'टोडा', 'type': 'म्हैस', 'origin': 'तमिळनाडू', 'lifespan': '15-18 वर्षे', 'milk': '4-6 लिटर/दिवस', 'weight': '350-400 किलो', 'height': '120-130 सेमी', 'appearance': 'राखाडी रंग, अर्धचंद्राकृती शिंगे.', 'diet': 'हिरवा चारा (20-25 किलो), सुका चारा (8-10 किलो), उच्च प्रथिनेयुक्त पशुखाद्य (4-5 किलो).'}
       };
     } else {
       breedData = {
-        'gir': {'name': 'Gir', 'type': 'Cow', 'origin': 'Gujarat (Saurashtra)', 'lifespan': '12-15 years', 'milk': '12-20 Liters/day', 'weight': '385kg - 545kg', 'height': '130 - 140 cm', 'appearance': 'Convex forehead, long pendulous ears, red/spotted.'},
-        'sahiwal': {'name': 'Sahiwal', 'type': 'Cow', 'origin': 'Punjab/Haryana', 'lifespan': '14-16 years', 'milk': '10-15 Liters/day', 'weight': '400kg - 500kg', 'height': '120 - 130 cm', 'appearance': 'Reddish brown color, heavy skin folds, prominent dewlap.'},
-        'kankrej': {'name': 'Kankrej', 'type': 'Cow', 'origin': 'Gujarat/Rajasthan', 'lifespan': '12-16 years', 'milk': '8-10 Liters/day', 'weight': '420kg - 590kg', 'height': '130 - 140 cm', 'appearance': 'Silver-grey to iron-grey, large strong crescent horns.'},
-        'ongole': {'name': 'Ongole', 'type': 'Cow', 'origin': 'Andhra Pradesh', 'lifespan': '15-20 years', 'milk': '5-8 Liters/day', 'weight': '430kg - 500kg', 'height': '135 - 150 cm', 'appearance': 'Glossy white, huge hump, short horns, muscular build.'},
-        'red sindhi': {'name': 'Red Sindhi', 'type': 'Cow', 'origin': 'Sindh/Rajasthan', 'lifespan': '12-15 years', 'milk': '12-18 Liters/day', 'weight': '300kg - 450kg', 'height': '115 - 130 cm', 'appearance': 'Deep red color, compact frame, thick horns.'},
-        'tharparkar': {'name': 'Tharparkar', 'type': 'Cow', 'origin': 'Rajasthan', 'lifespan': '14-18 years', 'milk': '10-14 Liters/day', 'weight': '400kg - 500kg', 'height': '120 - 140 cm', 'appearance': 'White/light grey color, lyre-shaped horns.'},
-        'rathi': {'name': 'Rathi', 'type': 'Cow', 'origin': 'Rajasthan', 'lifespan': '13-15 years', 'milk': '8-12 Liters/day', 'weight': '280kg - 350kg', 'height': '115 - 125 cm', 'appearance': 'Brown with white patches, medium horns, efficient in arid regions.'},
-        'hariana': {'name': 'Hariana', 'type': 'Cow', 'origin': 'Haryana', 'lifespan': '14-18 years', 'milk': '8-12 Liters/day', 'weight': '350kg - 500kg', 'height': '130 - 140 cm', 'appearance': 'White or light grey, long narrow face, small horns.'},
-        'deoni': {'name': 'Deoni', 'type': 'Cow', 'origin': 'Maharashtra/Karnataka', 'lifespan': '12-15 years', 'milk': '6-10 Liters/day', 'weight': '400kg - 500kg', 'height': '120 - 135 cm', 'appearance': 'Black and white patches, prominent forehead, drooping ears.'},
-        'malnad gidda': {'name': 'Malnad Gidda', 'type': 'Cow (Dwarf)', 'origin': 'Karnataka', 'lifespan': '10-14 years', 'milk': '2-4 Liters/day', 'weight': '120kg - 200kg', 'height': '90 - 100 cm', 'appearance': 'Small/dwarf stature, highly disease resistant, agile.'},
-        'banni': {'name': 'Banni', 'type': 'Buffalo', 'origin': 'Gujarat (Kutch)', 'lifespan': '15-20 years', 'milk': '12-15 Liters/day', 'weight': '450kg - 550kg', 'height': '130 - 140 cm', 'appearance': 'Night grazers, black, typical coiled horns.'},
-        'jaffarabadi': {'name': 'Jaffarabadi', 'type': 'Buffalo', 'origin': 'Gujarat', 'lifespan': '18-22 years', 'milk': '15-20 Liters/day', 'weight': '700kg - 800kg', 'height': '140 - 150 cm', 'appearance': 'Heavy built, massive body, drooping horns.'},
-        'nili ravi': {'name': 'Nili Ravi', 'type': 'Buffalo', 'origin': 'Punjab', 'lifespan': '14-18 years', 'milk': '12-18 Liters/day', 'weight': '500kg - 600kg', 'height': '130 - 140 cm', 'appearance': 'Wall eyes, white markings on face and legs.'},
-        'mehsana': {'name': 'Mehsana', 'type': 'Buffalo', 'origin': 'Gujarat', 'lifespan': '15-20 years', 'milk': '10-15 Liters/day', 'weight': '450kg - 550kg', 'height': '130 - 140 cm', 'appearance': 'Cross between Murrah and Surti, sickle-shaped horns.'},
-        'nagpuri': {'name': 'Nagpuri', 'type': 'Buffalo', 'origin': 'Maharashtra', 'lifespan': '15-18 years', 'milk': '5-8 Liters/day', 'weight': '350kg - 450kg', 'height': '120 - 130 cm', 'appearance': 'Long, flat, sword-shaped horns.'},
-        'toda': {'name': 'Toda', 'type': 'Buffalo', 'origin': 'Tamil Nadu', 'lifespan': '15-18 years', 'milk': '4-6 Liters/day', 'weight': '350kg - 400kg', 'height': '120 - 130 cm', 'appearance': 'Fawn to ash-grey color, distinct crescent-shaped horns.'}
+        'gir': {'name': 'Gir', 'type': 'Cow', 'origin': 'Gujarat (Saurashtra)', 'lifespan': '12-15 years', 'milk': '12-20 Liters/day', 'weight': '385kg - 545kg', 'height': '130 - 140 cm', 'appearance': 'Convex forehead, long pendulous ears, red/spotted.', 'diet': 'Green fodder (15-20kg), Dry fodder (5-7kg), Concentrate (3-4kg), Minerals (50g).'},
+        'sahiwal': {'name': 'Sahiwal', 'type': 'Cow', 'origin': 'Punjab/Haryana', 'lifespan': '14-16 years', 'milk': '10-15 Liters/day', 'weight': '400kg - 500kg', 'height': '120 - 130 cm', 'appearance': 'Reddish brown color, heavy skin folds, prominent dewlap.', 'diet': 'Green fodder (15-20kg), Dry fodder (5-7kg), Concentrate (3-4kg), Minerals (50g).'},
+        'kankrej': {'name': 'Kankrej', 'type': 'Cow', 'origin': 'Gujarat/Rajasthan', 'lifespan': '12-16 years', 'milk': '8-10 Liters/day', 'weight': '420kg - 590kg', 'height': '130 - 140 cm', 'appearance': 'Silver-grey to iron-grey, large strong crescent horns.', 'diet': 'Dry fodder (6-8kg), Grazing, Concentrate (2kg), and Salt.'},
+        'ongole': {'name': 'Ongole', 'type': 'Cow', 'origin': 'Andhra Pradesh', 'lifespan': '15-20 years', 'milk': '5-8 Liters/day', 'weight': '430kg - 500kg', 'height': '135 - 150 cm', 'appearance': 'Glossy white, huge hump, short horns, muscular build.', 'diet': 'Dry fodder (6-8kg), Grazing, Concentrate (2kg), and Salt.'},
+        'red sindhi': {'name': 'Red Sindhi', 'type': 'Cow', 'origin': 'Sindh/Rajasthan', 'lifespan': '12-15 years', 'milk': '12-18 Liters/day', 'weight': '300kg - 450kg', 'height': '115 - 130 cm', 'appearance': 'Deep red color, compact frame, thick horns.', 'diet': 'Green fodder (15-20kg), Dry fodder (5-7kg), Concentrate (3-4kg), Minerals (50g).'},
+        'tharparkar': {'name': 'Tharparkar', 'type': 'Cow', 'origin': 'Rajasthan', 'lifespan': '14-18 years', 'milk': '10-14 Liters/day', 'weight': '400kg - 500kg', 'height': '120 - 140 cm', 'appearance': 'White/light grey color, lyre-shaped horns.', 'diet': 'Green fodder (15-20kg), Dry fodder (5-7kg), Concentrate (3-4kg), Minerals (50g).'},
+        'rathi': {'name': 'Rathi', 'type': 'Cow', 'origin': 'Rajasthan', 'lifespan': '13-15 years', 'milk': '8-12 Liters/day', 'weight': '280kg - 350kg', 'height': '115 - 125 cm', 'appearance': 'Brown with white patches, medium horns, efficient in arid regions.', 'diet': 'Green fodder (15-20kg), Dry fodder (5-7kg), Concentrate (3-4kg), Minerals (50g).'},
+        'hariana': {'name': 'Hariana', 'type': 'Cow', 'origin': 'Haryana', 'lifespan': '14-18 years', 'milk': '8-12 Liters/day', 'weight': '350kg - 500kg', 'height': '130 - 140 cm', 'appearance': 'White or light grey, long narrow face, small horns.', 'diet': 'Dry fodder (6-8kg), Grazing, Concentrate (2kg), and Salt.'},
+        'deoni': {'name': 'Deoni', 'type': 'Cow', 'origin': 'Maharashtra/Karnataka', 'lifespan': '12-15 years', 'milk': '6-10 Liters/day', 'weight': '400kg - 500kg', 'height': '120 - 135 cm', 'appearance': 'Black and white patches, prominent forehead, drooping ears.', 'diet': 'Green fodder (15-20kg), Dry fodder (5-7kg), Concentrate (3-4kg), Minerals (50g).'},
+        'malnad gidda': {'name': 'Malnad Gidda', 'type': 'Cow (Dwarf)', 'origin': 'Karnataka', 'lifespan': '10-14 years', 'milk': '2-4 Liters/day', 'weight': '120kg - 200kg', 'height': '90 - 100 cm', 'appearance': 'Small/dwarf stature, highly disease resistant, agile.', 'diet': 'Grazing, Dry fodder (2-3kg), and minimal concentrate.'},
+        'banni': {'name': 'Banni', 'type': 'Buffalo', 'origin': 'Gujarat (Kutch)', 'lifespan': '15-20 years', 'milk': '12-15 Liters/day', 'weight': '450kg - 550kg', 'height': '130 - 140 cm', 'appearance': 'Night grazers, black, typical coiled horns.', 'diet': 'Green fodder (20-25kg), Dry fodder (8-10kg), High-protein concentrate (4-5kg).'},
+        'jaffarabadi': {'name': 'Jaffarabadi', 'type': 'Buffalo', 'origin': 'Gujarat', 'lifespan': '18-22 years', 'milk': '15-20 Liters/day', 'weight': '700kg - 800kg', 'height': '140 - 150 cm', 'appearance': 'Heavy built, massive body, drooping horns.', 'diet': 'Green fodder (20-25kg), Dry fodder (8-10kg), High-protein concentrate (4-5kg).'},
+        'nili ravi': {'name': 'Nili Ravi', 'type': 'Buffalo', 'origin': 'Punjab', 'lifespan': '14-18 years', 'milk': '12-18 Liters/day', 'weight': '500kg - 600kg', 'height': '130 - 140 cm', 'appearance': 'Wall eyes, white markings on face and legs.', 'diet': 'Green fodder (20-25kg), Dry fodder (8-10kg), High-protein concentrate (4-5kg).'},
+        'mehsana': {'name': 'Mehsana', 'type': 'Buffalo', 'origin': 'Gujarat', 'lifespan': '15-20 years', 'milk': '10-15 Liters/day', 'weight': '450kg - 550kg', 'height': '130 - 140 cm', 'appearance': 'Cross between Murrah and Surti, sickle-shaped horns.', 'diet': 'Green fodder (20-25kg), Dry fodder (8-10kg), High-protein concentrate (4-5kg).'},
+        'nagpuri': {'name': 'Nagpuri', 'type': 'Buffalo', 'origin': 'Maharashtra', 'lifespan': '15-18 years', 'milk': '5-8 Liters/day', 'weight': '350kg - 450kg', 'height': '120 - 130 cm', 'appearance': 'Long, flat, sword-shaped horns.', 'diet': 'Green fodder (20-25kg), Dry fodder (8-10kg), High-protein concentrate (4-5kg).'},
+        'toda': {'name': 'Toda', 'type': 'Buffalo', 'origin': 'Tamil Nadu', 'lifespan': '15-18 years', 'milk': '4-6 Liters/day', 'weight': '350kg - 400kg', 'height': '120 - 130 cm', 'appearance': 'Fawn to ash-grey color, distinct crescent-shaped horns.', 'diet': 'Green fodder (20-25kg), Dry fodder (8-10kg), High-protein concentrate (4-5kg).'}
       };
     }
 
@@ -650,7 +670,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
     return {
       'type': 'Cattle', 'name': breedName, 'origin': 'Unknown/Mixed', 'lifespan': '10-20 years',
       'milk': 'Data unavailable', 'weight': 'Data unavailable', 'height': 'Data unavailable',
-      'appearance': 'Could not accurately pull specific breed traits.'
+      'appearance': 'Could not accurately pull specific breed traits.', 'diet': 'General cattle feed'
     };
   }
 
@@ -709,6 +729,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
           if (score > maxScore) { maxScore = score; bestIdx = c; }
         }
       }
+
+      debugPrint("====== AI DIAGNOSTICS ======");
+      debugPrint("Max Confidence Score: $maxScore");
+      debugPrint("Winning Class Index: $bestIdx");
+      debugPrint("Total Labels in txt: ${_labels!.length}");
+      debugPrint("============================");
 
       if (bestIdx != -1) {
         if (bestIdx < _labels!.length) { return _labels![bestIdx].trim(); }
@@ -777,13 +803,15 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         _infoText("${translate('dialog_breed')} :- ${details['name'] ?? breed}"),
-                        _infoText("${translate('dialog_type')}: ${details['type']}"),
-                        _infoText("${translate('lib_origin')}: ${details['origin']}"),
-                        _infoText("${translate('lib_lifespan')}: ${details['lifespan']}"),
-                        _infoText("${translate('lib_milk')}: ${details['milk']}"),
-                        _infoText("${translate('lib_weight')} :- ${details['weight']}"),
-                        _infoText("${translate('lib_height')} :- ${details['height']}"),
-                        _infoText("${translate('lib_appearance')}: ${details['appearance']}"),
+                        _infoText("${translate('dialog_type')}: ${details['type'] ?? ''}"),
+                        _infoText("${translate('lib_origin')}: ${details['origin'] ?? ''}"),
+                        _infoText("${translate('lib_lifespan')}: ${details['lifespan'] ?? ''}"),
+                        _infoText("${translate('lib_milk')}: ${details['milk'] ?? ''}"),
+                        _infoText("${translate('lib_weight')} :- ${details['weight'] ?? ''}"),
+                        _infoText("${translate('lib_height')} :- ${details['height'] ?? ''}"),
+                        _infoText("${translate('lib_appearance')}: ${details['appearance'] ?? ''}"),
+                        const Divider(),
+                        _infoText("${translate('dialog_diet')}: ${details['diet'] ?? ''}"), // <-- ADDED DIET TO UI
                       ],
                     ),
                   ),
@@ -887,6 +915,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   _dashButton(Icons.bookmark_outline, translate('dash_saved'), () => Navigator.push(context, MaterialPageRoute(builder: (context) => const SavedCattlesScreen()))),
                   const SizedBox(height: 20),
                   _dashButton(Icons.book_outlined, translate('dash_library'), () => Navigator.push(context, MaterialPageRoute(builder: (context) => const BreedLibraryScreen()))),
+                  const SizedBox(height: 20),
+                  _dashButton(Icons.storefront, translate('dash_market'), () => Navigator.push(context, MaterialPageRoute(builder: (context) => const MarketplaceScreen()))),
                   if (widget.isAdmin) ...[
                     const SizedBox(height: 20),
                     _dashButton(Icons.badge_outlined, translate('dash_aadhar'), () {
@@ -1132,7 +1162,7 @@ class _BreedLibraryScreenState extends State<BreedLibraryScreen> {
                         child: ClipRRect(
                           borderRadius: const BorderRadius.vertical(top: Radius.circular(15)),
                           child: Image.asset(
-                            breed['image']!,
+                            breed['image'] ?? 'assets/logo.png',
                             fit: BoxFit.contain,
                             errorBuilder: (context, error, stackTrace) => Container(
                               color: Colors.grey[200],
@@ -1141,7 +1171,7 @@ class _BreedLibraryScreenState extends State<BreedLibraryScreen> {
                                 children: [
                                   const Icon(Icons.image_not_supported, size: 50, color: Colors.grey),
                                   const SizedBox(height: 10),
-                                  Text("Add ${breed['image']} to assets", style: const TextStyle(color: Colors.grey)),
+                                  Text("Add ${breed['image'] ?? 'image'} to assets", style: const TextStyle(color: Colors.grey)),
                                 ],
                               ),
                             ),
@@ -1156,24 +1186,24 @@ class _BreedLibraryScreenState extends State<BreedLibraryScreen> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text(breed['name']!, style: const TextStyle(fontSize: 26, fontWeight: FontWeight.bold, color: Color(0xFF64DD17))),
+                                Text(breed['name'] ?? 'Unknown', style: const TextStyle(fontSize: 26, fontWeight: FontWeight.bold, color: Color(0xFF64DD17))),
                                 Container(
                                   padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                                   decoration: BoxDecoration(color: const Color(0xFF64DD17).withOpacity(0.1), borderRadius: BorderRadius.circular(20)),
-                                  child: Text(breed['type']!, style: const TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF64DD17))),
+                                  child: Text(breed['type'] ?? 'Unknown', style: const TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF64DD17))),
                                 )
                               ],
                             ),
                             const SizedBox(height: 15),
-                            _detailRow(Icons.location_on, translate('lib_origin'), breed['origin']!),
-                            _detailRow(Icons.water_drop, translate('lib_milk'), breed['milk']!),
-                            _detailRow(Icons.monitor_weight, translate('lib_weight'), breed['weight']!),
-                            _detailRow(Icons.height, translate('lib_height'), breed['height']!),
-                            _detailRow(Icons.favorite, translate('lib_lifespan'), breed['lifespan']!),
+                            _detailRow(Icons.location_on, translate('lib_origin'), breed['origin'] ?? ''),
+                            _detailRow(Icons.water_drop, translate('lib_milk'), breed['milk'] ?? ''),
+                            _detailRow(Icons.monitor_weight, translate('lib_weight'), breed['weight'] ?? ''),
+                            _detailRow(Icons.height, translate('lib_height'), breed['height'] ?? ''),
+                            _detailRow(Icons.favorite, translate('lib_lifespan'), breed['lifespan'] ?? ''),
                             const Padding(padding: EdgeInsets.symmetric(vertical: 10), child: Divider()),
                             Text("${translate('lib_appearance')}:", style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: Colors.black87)),
                             const SizedBox(height: 5),
-                            Text(breed['appearance']!, style: const TextStyle(fontSize: 15, height: 1.4, color: Colors.black54)),
+                            Text(breed['appearance'] ?? '', style: const TextStyle(fontSize: 15, height: 1.4, color: Colors.black54)),
                           ],
                         ),
                       ),
@@ -1407,6 +1437,148 @@ class _PashuAadhaarRegistrationScreenState extends State<PashuAadhaarRegistratio
             ),
           ),
         ),
+      ),
+    );
+  }
+}
+
+// --- 12. MARKETPLACE SCREEN (MOCK UI FOR HACKATHON) ---
+class MarketplaceScreen extends StatefulWidget {
+  const MarketplaceScreen({super.key});
+
+  @override
+  State<MarketplaceScreen> createState() => _MarketplaceScreenState();
+}
+
+class _MarketplaceScreenState extends State<MarketplaceScreen> {
+  @override
+  Widget build(BuildContext context) {
+    return DefaultTabController(
+      length: 2,
+      child: Scaffold(
+        backgroundColor: Colors.grey[100],
+        appBar: AppBar(
+          backgroundColor: const Color(0xFF64DD17),
+          iconTheme: const IconThemeData(color: Colors.white),
+          title: Text(translate('market_title'), style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+          bottom: TabBar(
+            labelColor: Colors.white,
+            unselectedLabelColor: Colors.white70,
+            indicatorColor: Colors.white,
+            indicatorWeight: 3,
+            tabs: [
+              Tab(text: translate('buy_tab'), icon: const Icon(Icons.shopping_cart)),
+              Tab(text: translate('sell_tab'), icon: const Icon(Icons.storefront)),
+            ],
+          ),
+        ),
+        body: TabBarView(
+          children: [
+            _buildBuyTab(),
+            _buildSellTab(),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildBuyTab() {
+    // Mock Data for Hackathon
+    final List<Map<String, String>> cattleForSale = [
+      {'breed': 'Gir Cow', 'price': '45,000', 'location': 'Pune, Maharashtra', 'milk': '15 Liters/day', 'age': '4 Years'},
+      {'breed': 'Murrah Buffalo', 'price': '60,000', 'location': 'Nashik, Maharashtra', 'milk': '18 Liters/day', 'age': '5 Years'},
+      {'breed': 'Sahiwal Cow', 'price': '42,000', 'location': 'Satara, Maharashtra', 'milk': '14 Liters/day', 'age': '3 Years'},
+    ];
+
+    return ListView.builder(
+      padding: const EdgeInsets.all(16),
+      itemCount: cattleForSale.length,
+      itemBuilder: (context, index) {
+        final cattle = cattleForSale[index];
+        return Card(
+          elevation: 4,
+          margin: const EdgeInsets.only(bottom: 20),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                height: 150,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  color: Colors.grey[300],
+                  borderRadius: const BorderRadius.vertical(top: Radius.circular(15)),
+                ),
+                child: const Icon(Icons.pets, size: 60, color: Colors.grey),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(cattle['breed']!, style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Color(0xFF64DD17))),
+                    const SizedBox(height: 5),
+                    Text("${translate('price')}${cattle['price']}", style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black87)),
+                    const SizedBox(height: 10),
+                    Row(
+                      children: [
+                        const Icon(Icons.location_on, size: 16, color: Colors.grey),
+                        const SizedBox(width: 5),
+                        Text(cattle['location']!, style: const TextStyle(color: Colors.grey, fontSize: 14)),
+                      ],
+                    ),
+                    const SizedBox(height: 5),
+                    Text("Age: ${cattle['age']} | Milk: ${cattle['milk']}", style: const TextStyle(color: Colors.black54, fontSize: 14)),
+                    const SizedBox(height: 15),
+                    SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton.icon(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.blueAccent,
+                          padding: const EdgeInsets.symmetric(vertical: 12),
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                        ),
+                        icon: const Icon(Icons.phone, color: Colors.white),
+                        label: Text(translate('contact_seller'), style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+                        onPressed: () {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text("Calling seller in Demo Mode..."), backgroundColor: Colors.blue),
+                          );
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              )
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _buildSellTab() {
+    return SingleChildScrollView(
+      padding: const EdgeInsets.all(20),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text("Enter Cattle Details", style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Color(0xFF64DD17))),
+          const SizedBox(height: 20),
+          TextFormField(decoration: _inputDecoration(translate('form_breed'))),
+          const SizedBox(height: 15),
+          TextFormField(keyboardType: TextInputType.number, decoration: _inputDecoration(translate('form_age'))),
+          const SizedBox(height: 15),
+          TextFormField(keyboardType: TextInputType.number, decoration: _inputDecoration(translate('form_milk'))),
+          const SizedBox(height: 15),
+          TextFormField(keyboardType: TextInputType.number, decoration: _inputDecoration(translate('form_price'))),
+          const SizedBox(height: 30),
+          _actionButton(translate('list_cattle_btn'), () {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text("Cattle Listed Successfully! (Demo)"), backgroundColor: Colors.green),
+            );
+          })
+        ],
       ),
     );
   }
