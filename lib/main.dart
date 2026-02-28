@@ -47,115 +47,55 @@ ValueNotifier<List<String>> savedCattles = ValueNotifier<List<String>>([]);
 String translate(String key) {
   final Map<String, Map<String, String>> dictionary = {
     'en': {
-      'select_lang': 'Select Language',
-      'welcome': 'Welcome!',
-      'login_user': 'Login as User',
-      'login_admin': 'Login as Admin',
-      'enter_mobile': 'Enter Mobile Number',
-      'enter_email': 'Enter email Id',
-      'password': 'Password',
-      'login_btn': 'Login',
-      'no_account': 'Don’t have an account? ',
-      'signup_link': 'sign-up here',
-      'forgot_pass': 'Forgot Password?',
-      'signup_title': 'Sign Up',
-      'create_acc': 'Create Account',
-      'reset_pass': 'Reset Password',
-      'send_otp': 'Send OTP',
-      'full_name_admin': 'Full Name (Admin)',
-      'full_name_farmer': 'Full Name',
-      'create_password': 'Create Password',
-      'recovery_msg': 'Enter your registered ID to receive a recovery OTP.',
-      'id_hint': 'Mobile or Email ID',
-      'field_req': 'Field Required',
-      'pass_rec': 'Recommendation: Use at least 8 characters',
-      'invalid_email': 'Enter a valid email address (@ and .)',
-      'dash_scan': 'Scan/Upload Cattle',
-      'dash_saved': 'Saved Cattles',
-      'dash_library': 'Breed Library',
-      'dash_aadhar': 'Pashu Adhaar',
-      'welcome_admin': 'Welcome, Admin!',
-      'welcome_user': 'Welcome!',
-      'no_cattles': 'No cattles saved yet.',
-      'cattle_record': 'Cattle Record #',
-      // NEW LIBRARY & FILTER KEYS
-      'lib_title': 'Top 10 Indigenous Breeds', 'lib_origin': 'Origin', 'lib_milk': 'Milk Yield',
-      'lib_weight': 'Weight', 'lib_height': 'Height', 'lib_lifespan': 'Lifespan', 'lib_appearance': 'Appearance',
-      'filter_all': 'All', 'filter_cow': 'Cow', 'filter_buffalo': 'Buffalo'
+      'select_lang': 'Select Language', 'welcome': 'Welcome!', 'login_user': 'Login as User',
+      'login_admin': 'Login as Admin', 'enter_mobile': 'Enter Mobile Number', 'enter_email': 'Enter email Id',
+      'password': 'Password', 'login_btn': 'Login', 'no_account': 'Don’t have an account? ',
+      'signup_link': 'sign-up here', 'forgot_pass': 'Forgot Password?', 'signup_title': 'Sign Up',
+      'create_acc': 'Create Account', 'reset_pass': 'Reset Password', 'send_otp': 'Send OTP',
+      'full_name_admin': 'Full Name (Admin)', 'full_name_farmer': 'Full Name', 'create_password': 'Create Password',
+      'recovery_msg': 'Enter your registered ID to receive a recovery OTP.', 'id_hint': 'Mobile or Email ID',
+      'field_req': 'Field Required', 'pass_rec': 'Recommendation: Use at least 8 characters',
+      'invalid_email': 'Enter a valid email address (@ and .)', 'dash_scan': 'Scan/Upload Cattle',
+      'dash_saved': 'Saved Cattles', 'dash_library': 'Breed Library', 'dash_aadhar': 'Pashu Adhaar',
+      'welcome_admin': 'Welcome, Admin!', 'welcome_user': 'Welcome!', 'no_cattles': 'No cattles saved yet.',
+      'cattle_record': 'Cattle Record #', 'lib_title': 'Top Indigenous Breeds', 'lib_origin': 'Origin',
+      'lib_milk': 'Milk Yield', 'lib_weight': 'Weight', 'lib_height': 'Height', 'lib_lifespan': 'Lifespan',
+      'lib_appearance': 'Appearance', 'filter_all': 'All', 'filter_cow': 'Cow', 'filter_buffalo': 'Buffalo',
+      'filter_camel': 'Camel', 'coming_soon': 'Coming Soon! Camel breeds will be added in the next update.'
     },
     'hi': {
-      'select_lang': 'भाषा चुनें',
-      'welcome': 'स्वागत है!',
-      'login_user': 'यूजर लॉगिन',
-      'login_admin': 'एडमिन लॉगिन',
-      'enter_mobile': 'मोबाइल नंबर दर्ज करें',
-      'enter_email': 'ईमेल आईडी दर्ज करें',
-      'password': 'पासवर्ड',
-      'login_btn': 'लॉगिन',
-      'no_account': 'खाता नहीं है? ',
-      'signup_link': 'यहाँ साइन-अप करें',
-      'forgot_pass': 'पासवर्ड भूल गए?',
-      'signup_title': 'साइन अप',
-      'create_acc': 'खाता बनाएं',
-      'reset_pass': 'पासवर्ड रीसेट',
-      'send_otp': 'ओटीपी भेजें',
-      'full_name_admin': 'पूरा नाम (एडमिन)',
-      'full_name_farmer': 'पूरा नाम',
-      'create_password': 'पासवर्ड बनाएं',
-      'recovery_msg': 'रिकवरी ओटीपी प्राप्त करने के लिए अपनी पंजीकृत आईडी दर्ज करें।',
-      'id_hint': 'मोबाइल या ईमेल आईडी',
-      'field_req': 'क्षेत्र आवश्यक है',
-      'pass_rec': 'सिफारिश: कम से कम 8 वर्णों का उपयोग करें',
-      'invalid_email': 'एक वैध ईमेल पता दर्ज करें (@ और .)',
-      'dash_scan': 'पशु स्कैन/अपलोड करें',
-      'dash_saved': 'सहेजे गए पशु',
-      'dash_library': 'नस्ल पुस्तकालय',
-      'dash_aadhar': 'पशु आधार',
-      'welcome_admin': 'स्वागत है, एडमिन!',
-      'welcome_user': 'स्वागत है!',
-      'no_cattles': 'अभी तक कोई पशु नहीं बचाया गया है।',
-      'cattle_record': 'पशु रिकॉर्ड #',
-      // NEW LIBRARY & FILTER KEYS
-      'lib_title': 'शीर्ष 10 स्वदेशी नस्लें', 'lib_origin': 'मूल स्थान', 'lib_milk': 'दूध उत्पादन',
-      'lib_weight': 'वजन', 'lib_height': 'ऊँचाई', 'lib_lifespan': 'जीवनकाल', 'lib_appearance': 'दिखावट',
-      'filter_all': 'सभी', 'filter_cow': 'गाय', 'filter_buffalo': 'भैंस'
+      'select_lang': 'भाषा चुनें', 'welcome': 'स्वागत है!', 'login_user': 'यूजर लॉगिन',
+      'login_admin': 'एडमिन लॉगिन', 'enter_mobile': 'मोबाइल नंबर दर्ज करें', 'enter_email': 'ईमेल आईडी दर्ज करें',
+      'password': 'पासवर्ड', 'login_btn': 'लॉगिन', 'no_account': 'खाता नहीं है? ',
+      'signup_link': 'यहाँ साइन-अप करें', 'forgot_pass': 'पासवर्ड भूल गए?', 'signup_title': 'साइन अप',
+      'create_acc': 'खाता बनाएं', 'reset_pass': 'पासवर्ड रीसेट', 'send_otp': 'ओटीपी भेजें',
+      'full_name_admin': 'पूरा नाम (एडमिन)', 'full_name_farmer': 'पूरा नाम', 'create_password': 'पासवर्ड बनाएं',
+      'recovery_msg': 'रिकवरी ओटीपी प्राप्त करने के लिए अपनी पंजीकृत आईडी दर्ज करें।', 'id_hint': 'मोबाइल या ईमेल आईडी',
+      'field_req': 'क्षेत्र आवश्यक है', 'pass_rec': 'सिफारिश: कम से कम 8 वर्णों का उपयोग करें',
+      'invalid_email': 'एक वैध ईमेल पता दर्ज करें (@ और .)', 'dash_scan': 'पशु स्कैन/अपलोड करें',
+      'dash_saved': 'सहेजे गए पशु', 'dash_library': 'नस्ल पुस्तकालय', 'dash_aadhar': 'पशु आधार',
+      'welcome_admin': 'स्वागत है, एडमिन!', 'welcome_user': 'स्वागत है!', 'no_cattles': 'अभी तक कोई पशु नहीं बचाया गया है।',
+      'cattle_record': 'पशु रिकॉर्ड #', 'lib_title': 'शीर्ष स्वदेशी नस्लें', 'lib_origin': 'मूल स्थान',
+      'lib_milk': 'दूध उत्पादन', 'lib_weight': 'वजन', 'lib_height': 'ऊँचाई', 'lib_lifespan': 'जीवनकाल',
+      'lib_appearance': 'दिखावट', 'filter_all': 'सभी', 'filter_cow': 'गाय', 'filter_buffalo': 'भैंस',
+      'filter_camel': 'ऊंट', 'coming_soon': 'जल्द आ रहा है! ऊंट की नस्लों को अगले अपडेट में जोड़ा जाएगा।'
     },
     'mr': {
-      'select_lang': 'भाषा निवडा',
-      'welcome': 'स्वागत आहे!',
-      'login_user': 'वापरकर्ता लॉगिन',
-      'login_admin': 'अ‍ॅडमिन लॉगिन',
-      'enter_mobile': 'मोबाईल नंबर टाका',
-      'enter_email': 'ईमेल आयडी टाका',
-      'password': 'पासवर्ड',
-      'login_btn': 'लॉगिन',
-      'no_account': 'खाते नाही? ',
-      'signup_link': 'येथे साइन-अप करा',
-      'forgot_pass': 'पासवर्ड विसरलात?',
-      'signup_title': 'साइन अप',
-      'create_acc': 'खाते तयार करा',
-      'reset_pass': 'पासवर्ड रीसेट करा',
-      'send_otp': 'ओटीपी पाठवा',
-      'full_name_admin': 'पूर्ण नाव (अ‍ॅडमिन)',
-      'full_name_farmer': 'पूर्ण नाव',
-      'create_password': 'पासवर्ड तयार करा',
-      'recovery_msg': 'रिकव्हरी ओटीपी मिळवण्यासाठी तुमचा नोंदणीकृत आयडी टाका.',
-      'id_hint': 'मोबाईल किंवा ईमेल आयडी',
-      'field_req': 'क्षेत्र आवश्यक आहे',
-      'pass_rec': 'शिफारस: किमान 8 अक्षरे वापरा',
-      'invalid_email': 'वैध ईमेल पत्ता प्रविष्ट करा (@ आणि .)',
-      'dash_scan': 'पशु स्कॅन/अपलोड करा',
-      'dash_saved': 'जतन केलेले पशु',
-      'dash_library': 'नस्ल लायब्ररी',
-      'dash_aadhar': 'पशु आधार',
-      'welcome_admin': 'स्वागत आहे, अ‍ॅडमिन!',
-      'welcome_user': 'स्वागत आहे!',
-      'no_cattles': 'अद्याप कोणतेही पशु जतन केलेले नाहीत.',
-      'cattle_record': 'पशु रेकॉर्ड #',
-      // NEW LIBRARY & FILTER KEYS
-      'lib_title': 'शीर्ष 10 देशी जाती', 'lib_origin': 'मूळ स्थान', 'lib_milk': 'दूध उत्पादन',
-      'lib_weight': 'वजन', 'lib_height': 'उंची', 'lib_lifespan': 'आयुर्मान', 'lib_appearance': 'स्वरूप',
-      'filter_all': 'सर्व', 'filter_cow': 'गाय', 'filter_buffalo': 'म्हैस'
+      'select_lang': 'भाषा निवडा', 'welcome': 'स्वागत आहे!', 'login_user': 'वापरकर्ता लॉगिन',
+      'login_admin': 'अ‍ॅडमिन लॉगिन', 'enter_mobile': 'मोबाईल नंबर टाका', 'enter_email': 'ईमेल आयडी टाका',
+      'password': 'पासवर्ड', 'login_btn': 'लॉगिन', 'no_account': 'खाते नाही? ',
+      'signup_link': 'येथे साइन-अप करा', 'forgot_pass': 'पासवर्ड विसरलात?', 'signup_title': 'साइन अप',
+      'create_acc': 'खाते तयार करा', 'reset_pass': 'पासवर्ड रीसेट करा', 'send_otp': 'ओटीपी पाठवा',
+      'full_name_admin': 'पूर्ण नाव (अ‍ॅडमिन)', 'full_name_farmer': 'पूर्ण नाव', 'create_password': 'पासवर्ड तयार करा',
+      'recovery_msg': 'रिकव्हरी ओटीपी मिळवण्यासाठी तुमचा नोंदणीकृत आयडी टाका.', 'id_hint': 'मोबाईल किंवा ईमेल आयडी',
+      'field_req': 'क्षेत्र आवश्यक आहे', 'pass_rec': 'शिफारस: किमान 8 अक्षरे वापरा',
+      'invalid_email': 'वैध ईमेल पत्ता प्रविष्ट करा (@ आणि .)', 'dash_scan': 'पशु स्कॅन/अपलोड करा',
+      'dash_saved': 'जतन केलेले पशु', 'dash_library': 'नस्ल लायब्ररी', 'dash_aadhar': 'पशु आधार',
+      'welcome_admin': 'स्वागत आहे, अ‍ॅडमिन!', 'welcome_user': 'स्वागत आहे!', 'no_cattles': 'अद्याप कोणतेही पशु जतन केलेले नाहीत.',
+      'cattle_record': 'पशु रेकॉर्ड #', 'lib_title': 'शीर्ष देशी जाती', 'lib_origin': 'मूळ स्थान',
+      'lib_milk': 'दूध उत्पादन', 'lib_weight': 'वजन', 'lib_height': 'उंची', 'lib_lifespan': 'आयुर्मान',
+      'lib_appearance': 'स्वरूप', 'filter_all': 'सर्व', 'filter_cow': 'गाय', 'filter_buffalo': 'म्हैस',
+      'filter_camel': 'उंट', 'coming_soon': 'लवकरच येत आहे! पुढील अपडेटमध्ये उंटांच्या जाती जोडल्या जातील.'
     },
   };
   return dictionary[appLanguage.value]?[key] ?? key;
@@ -642,6 +582,36 @@ class _DashboardScreenState extends State<DashboardScreen> {
         'type': 'Cow (Dwarf)', 'origin': 'Karnataka', 'lifespan': '10-14 years',
         'milk': '2-4 Liters/day', 'weight': '120kg - 200kg', 'height': '90 - 100 cm',
         'appearance': 'Small/dwarf stature, highly disease resistant, agile.'
+      },
+      'banni': {
+        'type': 'Buffalo', 'origin': 'Gujarat (Kutch)', 'lifespan': '15-20 years',
+        'milk': '12-15 Liters/day', 'weight': '450kg - 550kg', 'height': '130 - 140 cm',
+        'appearance': 'Night grazers, black, typical coiled horns.'
+      },
+      'jaffarabadi': {
+        'type': 'Buffalo', 'origin': 'Gujarat', 'lifespan': '18-22 years',
+        'milk': '15-20 Liters/day', 'weight': '700kg - 800kg', 'height': '140 - 150 cm',
+        'appearance': 'Heavy built, massive body, drooping horns.'
+      },
+      'nili ravi': {
+        'type': 'Buffalo', 'origin': 'Punjab', 'lifespan': '14-18 years',
+        'milk': '12-18 Liters/day', 'weight': '500kg - 600kg', 'height': '130 - 140 cm',
+        'appearance': 'Wall eyes, white markings on face and legs.'
+      },
+      'mehsana': {
+        'type': 'Buffalo', 'origin': 'Gujarat', 'lifespan': '15-20 years',
+        'milk': '10-15 Liters/day', 'weight': '450kg - 550kg', 'height': '130 - 140 cm',
+        'appearance': 'Cross between Murrah and Surti, sickle-shaped horns.'
+      },
+      'nagpuri': {
+        'type': 'Buffalo', 'origin': 'Maharashtra', 'lifespan': '15-18 years',
+        'milk': '5-8 Liters/day', 'weight': '350kg - 450kg', 'height': '120 - 130 cm',
+        'appearance': 'Long, flat, sword-shaped horns.'
+      },
+      'toda': {
+        'type': 'Buffalo', 'origin': 'Tamil Nadu', 'lifespan': '15-18 years',
+        'milk': '4-6 Liters/day', 'weight': '350kg - 400kg', 'height': '120 - 130 cm',
+        'appearance': 'Fawn to ash-grey color, distinct crescent-shaped horns.'
       }
     };
 
@@ -656,7 +626,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
     };
   }
 
-  // Use bottomSheetContext to avoid conflict with main context
   void _showImageSourceDialog(BuildContext context) {
     showModalBottomSheet(
       context: context,
@@ -685,7 +654,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
     );
   }
 
-  // Updated YOLOv8 Parser with Shape 36 Mismatch Fix
   Future<String> _performAIClassification(String imagePath) async {
     if (_interpreter == null || _labels == null) return "Model Not Loaded";
     try {
@@ -809,7 +777,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     padding: const EdgeInsets.all(16),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(8),
-                      // Added BoxFit.contain here too!
                       child: Image.file(File(imagePath), height: 200, width: double.infinity, fit: BoxFit.contain),
                     ),
                   ),
@@ -997,7 +964,7 @@ class SavedCattlesScreen extends StatelessWidget {
   }
 }
 
-// --- 9. BREED LIBRARY SCREEN (NOW STATEFUL WITH FILTERS!) ---
+// --- 9. BREED LIBRARY SCREEN (WITH FILTERS & UPDATED BUFFALOES) ---
 class BreedLibraryScreen extends StatefulWidget {
   const BreedLibraryScreen({super.key});
 
@@ -1006,11 +973,9 @@ class BreedLibraryScreen extends StatefulWidget {
 }
 
 class _BreedLibraryScreenState extends State<BreedLibraryScreen> {
-  // Current active filter
   String _selectedFilter = 'All';
 
   List<Map<String, String>> getLocalizedBreeds(String lang) {
-    // Hidden 'category' key used strictly for filtering logic so it works regardless of the selected language
     if (lang == 'hi') {
       return [
         {'category': 'Cow', 'name': 'गिर', 'type': 'गाय', 'origin': 'गुजरात', 'lifespan': '12-15 वर्ष', 'milk': '12-20 लीटर/दिन', 'weight': '385-545 किग्रा', 'height': '130-140 सेमी', 'appearance': 'उत्तल माथा, लंबे लटकते कान, लाल/धब्बेदार।', 'image': 'assets/breeds/gir.jpg'},
@@ -1023,8 +988,12 @@ class _BreedLibraryScreenState extends State<BreedLibraryScreen> {
         {'category': 'Cow', 'name': 'हरियाणवी', 'type': 'गाय', 'origin': 'हरियाणा', 'lifespan': '14-18 वर्ष', 'milk': '8-12 लीटर/दिन', 'weight': '350-500 किग्रा', 'height': '130-140 सेमी', 'appearance': 'सफेद या हल्का भूरा, लंबा चेहरा।', 'image': 'assets/breeds/hariana.jpg'},
         {'category': 'Cow', 'name': 'देओनी', 'type': 'गाय', 'origin': 'महाराष्ट्र/कर्नाटक', 'lifespan': '12-15 वर्ष', 'milk': '6-10 लीटर/दिन', 'weight': '400-500 किग्रा', 'height': '120-135 सेमी', 'appearance': 'काले और सफेद धब्बे, लटकते कान।', 'image': 'assets/breeds/deoni.jpg'},
         {'category': 'Cow', 'name': 'मलनाड गिड्डा', 'type': 'गाय (बौनी)', 'origin': 'कर्नाटक', 'lifespan': '10-14 वर्ष', 'milk': '2-4 लीटर/दिन', 'weight': '120-200 किग्रा', 'height': '90-100 सेमी', 'appearance': 'छोटा कद, रोग प्रतिरोधी, फुर्तीली।', 'image': 'assets/breeds/malnad_gidda.jpg'},
-        {'category': 'Buffalo', 'name': 'मुर्रा', 'type': 'भैंस', 'origin': 'हरियाणा', 'lifespan': '18-20 वर्ष', 'milk': '15-25 लीटर/दिन', 'weight': '450-800 किग्रा', 'height': '135-145 सेमी', 'appearance': 'जेट काला शरीर, कसकर घुमावदार सींग।', 'image': 'assets/breeds/murrah.jpg'},
-        {'category': 'Buffalo', 'name': 'पंढरपुरी', 'type': 'भैंस', 'origin': 'महाराष्ट्र', 'lifespan': '15-18 वर्ष', 'milk': '8-12 लीटर/दिन', 'weight': '400-450 किग्रा', 'height': '125-135 सेमी', 'appearance': 'लंबे और घुमावदार सींग, मध्यम आकार।', 'image': 'assets/breeds/pandharpuri.jpg'}
+        {'category': 'Buffalo', 'name': 'बन्नी', 'type': 'भैंस', 'origin': 'गुजरात (कच्छ)', 'lifespan': '15-20 वर्ष', 'milk': '12-15 लीटर/दिन', 'weight': '450-550 किग्रा', 'height': '130-140 सेमी', 'appearance': 'रात में चरने वाली, घुमावदार सींग।', 'image': 'assets/breeds/banni.jpg'},
+        {'category': 'Buffalo', 'name': 'जाफराबादी', 'type': 'भैंस', 'origin': 'गुजरात', 'lifespan': '18-22 वर्ष', 'milk': '15-20 लीटर/दिन', 'weight': '700-800 किग्रा', 'height': '140-150 सेमी', 'appearance': 'भारी शरीर, लटकते सींग।', 'image': 'assets/breeds/jaffarabadi.jpg'},
+        {'category': 'Buffalo', 'name': 'नीली रावी', 'type': 'भैंस', 'origin': 'पंजाब', 'lifespan': '14-18 वर्ष', 'milk': '12-18 लीटर/दिन', 'weight': '500-600 किग्रा', 'height': '130-140 सेमी', 'appearance': 'सफेद आंखें, चेहरे और पैरों पर सफेद निशान।', 'image': 'assets/breeds/nili_ravi.jpg'},
+        {'category': 'Buffalo', 'name': 'मेहसाणा', 'type': 'भैंस', 'origin': 'गुजरात', 'lifespan': '15-20 वर्ष', 'milk': '10-15 लीटर/दिन', 'weight': '450-550 किग्रा', 'height': '130-140 सेमी', 'appearance': 'मुर्रा और सुरती का संकर, दरांती जैसे सींग।', 'image': 'assets/breeds/mehsana.jpg'},
+        {'category': 'Buffalo', 'name': 'नागपुरी', 'type': 'भैंस', 'origin': 'महाराष्ट्र', 'lifespan': '15-18 वर्ष', 'milk': '5-8 लीटर/दिन', 'weight': '350-450 किग्रा', 'height': '120-130 सेमी', 'appearance': 'लंबे और चपटे तलवार जैसे सींग।', 'image': 'assets/breeds/nagpuri.jpg'},
+        {'category': 'Buffalo', 'name': 'टोडा', 'type': 'भैंस', 'origin': 'तमिलनाडु', 'lifespan': '15-18 वर्ष', 'milk': '4-6 लीटर/दिन', 'weight': '350-400 किग्रा', 'height': '120-130 सेमी', 'appearance': 'भूरा रंग, विशिष्ट अर्धचंद्राकार सींग।', 'image': 'assets/breeds/toda.jpg'},
       ];
     } else if (lang == 'mr') {
       return [
@@ -1038,8 +1007,12 @@ class _BreedLibraryScreenState extends State<BreedLibraryScreen> {
         {'category': 'Cow', 'name': 'हरियाणवी', 'type': 'गाय', 'origin': 'हरियाणा', 'lifespan': '14-18 वर्षे', 'milk': '8-12 लिटर/दिवस', 'weight': '350-500 किलो', 'height': '130-140 सेमी', 'appearance': 'पांढरा किंवा फिकट राखाडी, लांब चेहरा.', 'image': 'assets/breeds/hariana.jpg'},
         {'category': 'Cow', 'name': 'देवणी', 'type': 'गाय', 'origin': 'महाराष्ट्र/कर्नाटक', 'lifespan': '12-15 वर्षे', 'milk': '6-10 लिटर/दिवस', 'weight': '400-500 किलो', 'height': '120-135 सेमी', 'appearance': 'काळे आणि पांढरे ठिपके, लोंबकळणारे कान.', 'image': 'assets/breeds/deoni.jpg'},
         {'category': 'Cow', 'name': 'मलनाड गिड्डा', 'type': 'गाय (बुटकी)', 'origin': 'कर्नाटक', 'lifespan': '10-14 वर्षे', 'milk': '2-4 लिटर/दिवस', 'weight': '120-200 किलो', 'height': '90-100 सेमी', 'appearance': 'लहान उंची, रोगप्रतिकारक, चपळ.', 'image': 'assets/breeds/malnad_gidda.jpg'},
-        {'category': 'Buffalo', 'name': 'मुर्रा', 'type': 'म्हैस', 'origin': 'हरियाणा', 'lifespan': '18-20 वर्षे', 'milk': '15-25 लिटर/दिवस', 'weight': '450-800 किलो', 'height': '135-145 सेमी', 'appearance': 'गडद काळा रंग, वळलेली शिंगे.', 'image': 'assets/breeds/murrah.jpg'},
-        {'category': 'Buffalo', 'name': 'पंढरपुरी', 'type': 'म्हैस', 'origin': 'महाराष्ट्र', 'lifespan': '15-18 वर्षे', 'milk': '8-12 लिटर/दिवस', 'weight': '400-450 किलो', 'height': '125-135 सेमी', 'appearance': 'लांब आणि वळलेली शिंगे.', 'image': 'assets/breeds/pandharpuri.jpg'}
+        {'category': 'Buffalo', 'name': 'बन्नी', 'type': 'म्हैस', 'origin': 'गुजरात (कच्छ)', 'lifespan': '15-20 वर्षे', 'milk': '12-15 लिटर/दिवस', 'weight': '450-550 किलो', 'height': '130-140 सेमी', 'appearance': 'रात्री चरणाऱ्या, वळलेली शिंगे.', 'image': 'assets/breeds/banni.jpg'},
+        {'category': 'Buffalo', 'name': 'जाफराबादी', 'type': 'म्हैस', 'origin': 'गुजरात', 'lifespan': '18-22 वर्षे', 'milk': '15-20 लिटर/दिवस', 'weight': '700-800 किलो', 'height': '140-150 सेमी', 'appearance': 'जड शरीर, लोंबकळणारी शिंगे.', 'image': 'assets/breeds/jaffarabadi.jpg'},
+        {'category': 'Buffalo', 'name': 'नीली रावी', 'type': 'म्हैस', 'origin': 'पंजाब', 'lifespan': '14-18 वर्षे', 'milk': '12-18 लिटर/दिवस', 'weight': '500-600 किलो', 'height': '130-140 सेमी', 'appearance': 'पांढरे डोळे, चेहरा आणि पायांवर पांढरे डाग.', 'image': 'assets/breeds/nili_ravi.jpg'},
+        {'category': 'Buffalo', 'name': 'मेहसाणा', 'type': 'म्हैस', 'origin': 'गुजरात', 'lifespan': '15-20 वर्षे', 'milk': '10-15 लिटर/दिवस', 'weight': '450-550 किलो', 'height': '130-140 सेमी', 'appearance': 'विळ्याच्या आकाराची शिंगे.', 'image': 'assets/breeds/mehsana.jpg'},
+        {'category': 'Buffalo', 'name': 'नागपुरी', 'type': 'म्हैस', 'origin': 'महाराष्ट्र', 'lifespan': '15-18 वर्षे', 'milk': '5-8 लिटर/दिवस', 'weight': '350-450 किलो', 'height': '120-130 सेमी', 'appearance': 'लांब आणि सपाट तलवारीसारखी शिंगे.', 'image': 'assets/breeds/nagpuri.jpg'},
+        {'category': 'Buffalo', 'name': 'टोडा', 'type': 'म्हैस', 'origin': 'तमिळनाडू', 'lifespan': '15-18 वर्षे', 'milk': '4-6 लिटर/दिवस', 'weight': '350-400 किलो', 'height': '120-130 सेमी', 'appearance': 'राखाडी रंग, अर्धचंद्राकृती शिंगे.', 'image': 'assets/breeds/toda.jpg'},
       ];
     }
     // Default English
@@ -1054,8 +1027,12 @@ class _BreedLibraryScreenState extends State<BreedLibraryScreen> {
       {'category': 'Cow', 'name': 'Hariana', 'type': 'Cow', 'origin': 'Haryana', 'lifespan': '14-18 years', 'milk': '8-12 Liters/day', 'weight': '350-500kg', 'height': '130-140 cm', 'appearance': 'White or light grey, long narrow face, small horns.', 'image': 'assets/breeds/hariana.jpg'},
       {'category': 'Cow', 'name': 'Deoni', 'type': 'Cow', 'origin': 'Maharashtra/Karnataka', 'lifespan': '12-15 years', 'milk': '6-10 Liters/day', 'weight': '400-500kg', 'height': '120-135 cm', 'appearance': 'Black and white patches, prominent forehead, drooping ears.', 'image': 'assets/breeds/deoni.jpg'},
       {'category': 'Cow', 'name': 'Malnad Gidda', 'type': 'Cow (Dwarf)', 'origin': 'Karnataka', 'lifespan': '10-14 years', 'milk': '2-4 Liters/day', 'weight': '120-200kg', 'height': '90-100 cm', 'appearance': 'Small/dwarf stature, highly disease resistant, agile.', 'image': 'assets/breeds/malnad_gidda.jpg'},
-      {'category': 'Buffalo', 'name': 'Murrah', 'type': 'Buffalo', 'origin': 'Haryana', 'lifespan': '18-20 years', 'milk': '15-25 Liters/day', 'weight': '450-800kg', 'height': '135-145 cm', 'appearance': 'Jet black body, tightly curved horns.', 'image': 'assets/breeds/murrah.jpg'},
-      {'category': 'Buffalo', 'name': 'Pandharpuri', 'type': 'Buffalo', 'origin': 'Maharashtra', 'lifespan': '15-18 years', 'milk': '8-12 Liters/day', 'weight': '400-450kg', 'height': '125-135 cm', 'appearance': 'Long, sweeping, curved horns.', 'image': 'assets/breeds/pandharpuri.jpg'}
+      {'category': 'Buffalo', 'name': 'Banni', 'type': 'Buffalo', 'origin': 'Gujarat (Kutch)', 'lifespan': '15-20 years', 'milk': '12-15 Liters/day', 'weight': '450-550kg', 'height': '130-140 cm', 'appearance': 'Night grazers, black, typical coiled horns.', 'image': 'assets/breeds/banni.jpg'},
+      {'category': 'Buffalo', 'name': 'Jaffarabadi', 'type': 'Buffalo', 'origin': 'Gujarat', 'lifespan': '18-22 years', 'milk': '15-20 Liters/day', 'weight': '700-800kg', 'height': '140-150 cm', 'appearance': 'Heavy built, massive body, drooping horns.', 'image': 'assets/breeds/jaffarabadi.jpg'},
+      {'category': 'Buffalo', 'name': 'Nili Ravi', 'type': 'Buffalo', 'origin': 'Punjab', 'lifespan': '14-18 years', 'milk': '12-18 Liters/day', 'weight': '500-600kg', 'height': '130-140 cm', 'appearance': 'Wall eyes, white markings on face and legs.', 'image': 'assets/breeds/nili_ravi.jpg'},
+      {'category': 'Buffalo', 'name': 'Mehsana', 'type': 'Buffalo', 'origin': 'Gujarat', 'lifespan': '15-20 years', 'milk': '10-15 Liters/day', 'weight': '450-550kg', 'height': '130-140 cm', 'appearance': 'Cross between Murrah and Surti, sickle-shaped horns.', 'image': 'assets/breeds/mehsana.jpg'},
+      {'category': 'Buffalo', 'name': 'Nagpuri', 'type': 'Buffalo', 'origin': 'Maharashtra', 'lifespan': '15-18 years', 'milk': '5-8 Liters/day', 'weight': '350-450kg', 'height': '120-130 cm', 'appearance': 'Long, flat, sword-shaped horns.', 'image': 'assets/breeds/nagpuri.jpg'},
+      {'category': 'Buffalo', 'name': 'Toda', 'type': 'Buffalo', 'origin': 'Tamil Nadu', 'lifespan': '15-18 years', 'milk': '4-6 Liters/day', 'weight': '350-400kg', 'height': '120-130 cm', 'appearance': 'Fawn to ash-grey color, distinct crescent-shaped horns.', 'image': 'assets/breeds/toda.jpg'},
     ];
   }
 
@@ -1063,10 +1040,8 @@ class _BreedLibraryScreenState extends State<BreedLibraryScreen> {
   Widget build(BuildContext context) {
     String currentLang = appLanguage.value;
 
-    // Get all breeds
     List<Map<String, String>> allBreeds = getLocalizedBreeds(currentLang);
 
-    // Apply filter
     List<Map<String, String>> filteredList = allBreeds.where((breed) {
       if (_selectedFilter == 'All') return true;
       return breed['category'] == _selectedFilter;
@@ -1081,23 +1056,49 @@ class _BreedLibraryScreenState extends State<BreedLibraryScreen> {
       ),
       body: Column(
         children: [
-          // --- FILTER CHIPS UI ---
+          // --- SCROLLABLE FILTER CHIPS UI ---
           Container(
-            padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+            padding: const EdgeInsets.symmetric(vertical: 12),
             color: Colors.white,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                _buildFilterChip('All', translate('filter_all')),
-                _buildFilterChip('Cow', translate('filter_cow')),
-                _buildFilterChip('Buffalo', translate('filter_buffalo')),
-              ],
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: [
+                  const SizedBox(width: 16),
+                  _buildFilterChip('All', translate('filter_all')),
+                  const SizedBox(width: 10),
+                  _buildFilterChip('Cow', translate('filter_cow')),
+                  const SizedBox(width: 10),
+                  _buildFilterChip('Buffalo', translate('filter_buffalo')),
+                  const SizedBox(width: 10),
+                  _buildFilterChip('Camel', translate('filter_camel')),
+                  const SizedBox(width: 16),
+                ],
+              ),
             ),
           ),
 
-          // --- FILTERED LIST ---
+          // --- FILTERED LIST OR COMING SOON MESSAGE ---
           Expanded(
-            child: ListView.builder(
+            child: _selectedFilter == 'Camel'
+                ? Center(
+              child: Padding(
+                padding: const EdgeInsets.all(30.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(Icons.hourglass_empty, size: 80, color: Colors.grey[400]),
+                    const SizedBox(height: 20),
+                    Text(
+                      translate('coming_soon'),
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 18, color: Colors.grey[600], fontWeight: FontWeight.w500),
+                    ),
+                  ],
+                ),
+              ),
+            )
+                : ListView.builder(
               padding: const EdgeInsets.all(16),
               itemCount: filteredList.length,
               itemBuilder: (context, index) {
@@ -1121,7 +1122,7 @@ class _BreedLibraryScreenState extends State<BreedLibraryScreen> {
                           borderRadius: const BorderRadius.vertical(top: Radius.circular(15)),
                           child: Image.asset(
                             breed['image']!,
-                            fit: BoxFit.contain, // Image is fully visible, not cropped!
+                            fit: BoxFit.contain,
                             errorBuilder: (context, error, stackTrace) => Container(
                               color: Colors.grey[200],
                               child: Column(
@@ -1176,7 +1177,6 @@ class _BreedLibraryScreenState extends State<BreedLibraryScreen> {
     );
   }
 
-  // Clickable Buttons Logic
   Widget _buildFilterChip(String categoryValue, String displayLabel) {
     bool isSelected = _selectedFilter == categoryValue;
     return GestureDetector(
